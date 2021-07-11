@@ -35,7 +35,7 @@ namespace ClairvoyanceMod
             properties.AllowedElements = ElementTypes.Magic;
             properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker;
             properties.MagicSkill = DFCareer.MagicSkills.Thaumaturgy;
-            properties.DurationCosts = MakeEffectCosts(8, 40);
+            properties.DurationCosts = MakeEffectCosts(40, 200);
             properties.ShowSpellIcon = true;
             properties.DisableReflectiveEnumeration = true;
         }
@@ -43,9 +43,9 @@ namespace ClairvoyanceMod
         public override string GroupName => TextManager.Instance.GetLocalizedText("detect");
 
         //Todo: localisation
-        public override string SubGroupName => "Quest";
-        public override TextFile.Token[] SpellMakerDescription => DaggerfallUnity.Instance.TextProvider.GetRSCTokens(1598);
-        public override TextFile.Token[] SpellBookDescription => DaggerfallUnity.Instance.TextProvider.GetRSCTokens(1298);
+        public override string SubGroupName => TextManager.Instance.GetLocalizedText("quest");
+        public override TextFile.Token[] SpellMakerDescription => GetEffectDescription();
+        public override TextFile.Token[] SpellBookDescription => GetEffectDescription();
 
         protected override bool IsLikeKind(IncumbentEffect other)
         {
@@ -75,12 +75,12 @@ namespace ClairvoyanceMod
                     questTarget.transform.position = questTargetPosition;                    
                     PlayerGPS.NearbyObject nearbyObject;
                     nearbyObject.gameObject = questTarget;
-                    nearbyObject.flags = PlayerGPS.NearbyObjectFlags.None;
+                    nearbyObject.flags = PlayerGPS.NearbyObjectFlags.None;                    
                     nearbyObject.distance = 0;
-                    DetectedObjects.Add(nearbyObject);
+                    //nearbyObject.distance = Vector3.Distance(GameManager.Instance.PlayerObject.transform.localPosition, questTargetPosition);
+                    DetectedObjects.Add(nearbyObject);                    
                 }
             }
-
         }
 
         public override void Start(EntityEffectManager manager, DaggerfallEntityBehaviour caster = null)
@@ -103,6 +103,17 @@ namespace ClairvoyanceMod
         {
             base.MagicRound();
             AddQuestMarkerToTracked();
+        }
+
+        private TextFile.Token[] GetEffectDescription()
+        {
+            return DaggerfallUnity.Instance.TextProvider.CreateTokens(
+                TextFile.Formatting.JustifyCenter,
+                DisplayName,
+                "Duration: Spell lasts %bdr + %adr per %cld level(s)",
+                "Chance: N/A",
+                "Magnitude: N/A",
+                "Caster focuses on the thing he wants to find and learns its general direction. Only works underground.");
         }
     }
 }
