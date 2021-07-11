@@ -1,5 +1,6 @@
 *
-!./Assets/Game/Mods/*
 !.gitignore
-!ReadMe.txt
-!ReadMe.txt.meta
+!Assets/
+!Assets/Game/
+!Assets/Game/Mods/
+!Assets/Game/Mods/*
