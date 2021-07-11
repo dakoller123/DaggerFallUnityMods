@@ -1,14 +1,14 @@
 {
     "ModTitle": "Clairvoyance",
-    "ModVersion": "0.1.10",
+    "ModVersion": "0.1.11",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "0.11.4",
     "ModDescription": "Adds a new thaumaturgy spell that lets you see the quest target in the compass",
     "GUID": "59f04177-6dcd-46db-b08a-478e75e827ac",
     "Files": [
-        "Assets/Game/Mods/QuestMarker/Scripts/DetectQuestTarget.cs",
-        "Assets/Game/Mods/QuestMarker/Scripts/EntryPoint.cs",
-        "Assets/Game/Mods/QuestMarker/QuestMarker.dfmod.json"
+        "Assets/Game/Mods/Clairvoyance/Scripts/DetectQuestTarget.cs",
+        "Assets/Game/Mods/Clairvoyance/Scripts/EntryPoint.cs",
+        "Assets/Game/Mods/Clairvoyance/Clairvoyance.dfmod.json"
     ]
 }
