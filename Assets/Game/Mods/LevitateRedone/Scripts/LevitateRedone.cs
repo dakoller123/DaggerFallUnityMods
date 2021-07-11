@@ -26,30 +26,29 @@ namespace LevitateRedoneMod
     /// </summary>
     public class LevitateRedoneMagicEffect : IncumbentEffect
     {
-        public static readonly string EffectKey = "True-Levitate";
+        //public static readonly string EffectKey = "True-Levitate";
+        public static readonly string EffectKey = "Levitate";
 
         public override void SetProperties()
         {
             properties.Key = EffectKey;    
             properties.SupportDuration = true;
             properties.SupportMagnitude = true;
+            //properties.SupportChance = true;
             properties.AllowedTargets = TargetTypes.CasterOnly;
             properties.AllowedElements = ElementTypes.Magic;
             properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker;
             properties.MagicSkill = DFCareer.MagicSkills.Thaumaturgy;
-            properties.DurationCosts = MakeEffectCosts(60, 100);
-            properties.MagnitudeCosts = MakeEffectCosts(100, 200);
+            properties.DurationCosts = MakeEffectCosts(100, 300);
+            properties.MagnitudeCosts = MakeEffectCosts(200, 400);
+            //properties.ChanceCosts = MakeEffectCosts(40, 300);
+            //properties.ChanceFunction = ChanceFunction.Custom;
+            properties.ClassicKey = MakeClassicKey(14, 255);
         }
-
-        public override string GroupName => "True Levitate";
+        public override string GroupName => TextManager.Instance.GetLocalizedText("levitate");
+        //public override string GroupName => "True Levitate";
         public override TextFile.Token[] SpellMakerDescription => DaggerfallUnity.Instance.TextProvider.GetRSCTokens(1562);
         public override TextFile.Token[] SpellBookDescription => DaggerfallUnity.Instance.TextProvider.GetRSCTokens(1262);
-
-        public override void ConstantEffect()
-        {
-            base.ConstantEffect();
-            StartLevitating();
-        }
 
         public override void Start(EntityEffectManager manager, DaggerfallEntityBehaviour caster = null)
         {
@@ -62,6 +61,7 @@ namespace LevitateRedoneMod
             base.Resume(effectData, manager, caster);
             StartLevitating();
         }
+
 
         public override void End()
         {
@@ -86,6 +86,23 @@ namespace LevitateRedoneMod
 
             return (0.25f * spellMagnitude);
         }
+
+        void StartOrKeepLevitatingIfRollChanceSuccess()
+        {
+            // Do nothing if spell chance fails
+            // Always succeeds chance roll when cast by item but still subject to level vs. door requirement
+            if (!RollChance())
+            {
+                DaggerfallUI.AddHUDText(TextManager.Instance.GetLocalizedText("spellEffectFailed"));
+                StopLevitating();
+                return;
+            }
+            else
+            {
+                StartLevitating();
+            }            
+        }
+        
 
         void StartLevitating()
         {

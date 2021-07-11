@@ -41,7 +41,7 @@ namespace LevitateRedoneMod
             Debug.Log("Begin mod init: LevitateRedoneMod");
 
             templateEffect = new LevitateRedoneMagicEffect();
-            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect);
+            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect, true);
 
             Debug.Log("Finished mod init: LevitateRedoneMod");
         }

@@ -1,6 +1,6 @@
 {
     "ModTitle": "Levitate Redone",
-    "ModVersion": "0.4",
+    "ModVersion": "0.11",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "0.11.4",
@@ -8,6 +8,7 @@
     "GUID": "aabac725-549d-448b-8f9c-77e9e871f3ab",
     "Files": [
         "Assets/Game/Mods/LevitateRedone/Scripts/EntryPoint.cs",
-        "Assets/Game/Mods/LevitateRedone/Scripts/LevitateRedone.cs"
+        "Assets/Game/Mods/LevitateRedone/Scripts/LevitateRedone.cs",
+        "Assets/Game/Mods/LevitateRedone/levitateredone.dfmod.json"
     ]
 }
