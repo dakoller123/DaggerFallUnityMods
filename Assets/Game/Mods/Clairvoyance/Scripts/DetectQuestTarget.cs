@@ -85,6 +85,7 @@ namespace ClairvoyanceMod
 
         public override void Start(EntityEffectManager manager, DaggerfallEntityBehaviour caster = null)
         {
+            base.Start(manager, caster);
             DetectedObjects = new List<PlayerGPS.NearbyObject> { };
             AddQuestMarkerToTracked();
             DaggerfallUI.Instance.DaggerfallHUD.HUDCompass.RegisterDetector(this);
