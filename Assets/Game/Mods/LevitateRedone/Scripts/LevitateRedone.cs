@@ -26,38 +26,24 @@ namespace LevitateRedoneMod
     /// </summary>
     public class LevitateRedoneMagicEffect : IncumbentEffect
     {
-        public static readonly string EffectKey = "Levitate";
+        public static readonly string EffectKey = "True-Levitate";
 
         public override void SetProperties()
         {
-            properties.Key = EffectKey;
-            properties.ClassicKey = MakeClassicKey(14, 255);
+            properties.Key = EffectKey;    
             properties.SupportDuration = true;
             properties.SupportMagnitude = true;
             properties.AllowedTargets = TargetTypes.CasterOnly;
             properties.AllowedElements = ElementTypes.Magic;
-            properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker | MagicCraftingStations.PotionMaker;
+            properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker;
             properties.MagicSkill = DFCareer.MagicSkills.Thaumaturgy;
             properties.DurationCosts = MakeEffectCosts(60, 100);
-            properties.MagnitudeCosts = MakeEffectCosts(8, 8);
+            properties.MagnitudeCosts = MakeEffectCosts(100, 200);
         }
 
-        public override string GroupName => TextManager.Instance.GetLocalizedText("levitate");
+        public override string GroupName => "True Levitate";
         public override TextFile.Token[] SpellMakerDescription => DaggerfallUnity.Instance.TextProvider.GetRSCTokens(1562);
         public override TextFile.Token[] SpellBookDescription => DaggerfallUnity.Instance.TextProvider.GetRSCTokens(1262);
-
-        //public override void SetPotionProperties()
-        //{
-        //    PotionRecipe levitation = new PotionRecipe(
-        //        "levitation",
-        //        125,
-        //        DefaultEffectSettings(),
-        //        (int)Items.MiscellaneousIngredients1.Pure_water,
-        //        (int)Items.MiscellaneousIngredients1.Nectar,
-        //        (int)Items.CreatureIngredients1.Ectoplasm);
-
-        //    AssignPotionRecipes(levitation);
-        //}
 
         public override void ConstantEffect()
         {
@@ -85,7 +71,7 @@ namespace LevitateRedoneMod
 
         protected override bool IsLikeKind(IncumbentEffect other)
         {
-            return (other is Levitate);
+            return (other is LevitateRedoneMagicEffect);
         }
 
         protected override void AddState(IncumbentEffect incumbent)
@@ -94,25 +80,25 @@ namespace LevitateRedoneMod
             incumbent.RoundsRemaining += RoundsRemaining;
         }
 
+        float CalculateLeviationSpeed()
+        {
+            var spellMagnitude = GetMagnitude(caster);
+
+            return (0.25f * spellMagnitude);
+        }
+
         void StartLevitating()
         {
             // Get peered entity gameobject
             DaggerfallEntityBehaviour entityBehaviour = GetPeeredEntityBehaviour(manager);
             if (!entityBehaviour)
                 return;
-
             // Enable levitation for player or enemies
             if (entityBehaviour.EntityType == EntityTypes.Player)
             {
-                GameManager.Instance.PlayerMotor.GetComponent<LevitateMotor>().IsLevitating = true;
-                //float levitationSpeed = 1.0f * (GetMagnitude(caster))
-            }
-            else if (entityBehaviour.EntityType == EntityTypes.EnemyMonster || entityBehaviour.EntityType == EntityTypes.EnemyClass)
-            {
-                EnemyMotor enemyMotor = entityBehaviour.GetComponent<EnemyMotor>();
-                if (enemyMotor)
-                    enemyMotor.IsLevitating = true;
-            }
+                GameManager.Instance.PlayerMotor.GetComponent<LevitateMotor>().IsLevitating = true;                
+                GameManager.Instance.PlayerMotor.GetComponent<LevitateMotor>().LevitateMoveSpeed = CalculateLeviationSpeed();
+            }            
         }
 
         void StopLevitating()
@@ -126,12 +112,6 @@ namespace LevitateRedoneMod
             if (entityBehaviour.EntityType == EntityTypes.Player)
             {
                 GameManager.Instance.PlayerMotor.GetComponent<LevitateMotor>().IsLevitating = false;
-            }
-            else if (entityBehaviour.EntityType == EntityTypes.EnemyMonster || entityBehaviour.EntityType == EntityTypes.EnemyClass)
-            {
-                EnemyMotor enemyMotor = entityBehaviour.GetComponent<EnemyMotor>();
-                if (enemyMotor)
-                    enemyMotor.IsLevitating = false;
             }
         }
     }
