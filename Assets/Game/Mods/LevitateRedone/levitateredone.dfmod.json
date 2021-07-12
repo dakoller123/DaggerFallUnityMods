@@ -1,10 +1,10 @@
 {
     "ModTitle": "Levitate Redone",
-    "ModVersion": "0.11",
+    "ModVersion": "0.12",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "0.11.4",
-    "ModDescription": "Overhauls Levitation spell. Speed increases with magnitude",
+    "ModDescription": "Overhauls Levitation spell. Speed increases with magnitude.",
     "GUID": "aabac725-549d-448b-8f9c-77e9e871f3ab",
     "Files": [
         "Assets/Game/Mods/LevitateRedone/Scripts/EntryPoint.cs",
