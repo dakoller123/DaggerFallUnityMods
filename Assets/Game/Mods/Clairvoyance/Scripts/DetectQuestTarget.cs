@@ -44,8 +44,8 @@ namespace ClairvoyanceMod
 
         //Todo: localisation
         public override string SubGroupName => TextManager.Instance.GetLocalizedText("quest");
-        public override TextFile.Token[] SpellMakerDescription => GetEffectDescription();
-        public override TextFile.Token[] SpellBookDescription => GetEffectDescription();
+        public override TextFile.Token[] SpellMakerDescription => GetSpellMakerEffectDescription();
+        public override TextFile.Token[] SpellBookDescription => GetSpellBookEffectDescription();
 
         protected override bool IsLikeKind(IncumbentEffect other)
         {
@@ -105,7 +105,19 @@ namespace ClairvoyanceMod
             AddQuestMarkerToTracked();
         }
 
-        private TextFile.Token[] GetEffectDescription()
+
+        private TextFile.Token[] GetSpellMakerEffectDescription()
+        {
+            return DaggerfallUnity.Instance.TextProvider.CreateTokens(
+                TextFile.Formatting.JustifyCenter,
+                DisplayName,
+                "Duration: Rounds the magic lasts.",
+                "Chance: N/A",
+                "Magnitude: N/A",
+                effectDescription);
+        }
+
+        private TextFile.Token[] GetSpellBookEffectDescription()
         {
             return DaggerfallUnity.Instance.TextProvider.CreateTokens(
                 TextFile.Formatting.JustifyCenter,
@@ -113,7 +125,9 @@ namespace ClairvoyanceMod
                 "Duration: Spell lasts %bdr + %adr per %cld level(s)",
                 "Chance: N/A",
                 "Magnitude: N/A",
-                "Caster focuses on the thing he wants to find and learns its general direction. Only works underground.");
+                effectDescription);
         }
+
+        private const string effectDescription = "Caster focuses on the thing he wants to find and learns its general direction. Only works underground.";
     }
 }
