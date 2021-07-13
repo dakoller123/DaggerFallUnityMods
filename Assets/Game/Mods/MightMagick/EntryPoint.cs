@@ -9,8 +9,11 @@ using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Utility.ModSupport;
 using DaggerfallWorkshop.Game.Serialization;
 using DaggerfallWorkshop.Utility;
+using DaggerfallWorkshop.Game.Formulas;
+using MightyMagick.MagicEffects;
+using MightyMagick.Formulas;
 
-namespace MightyMagickMod
+namespace MightyMagick
 {
     public class MightyMagickMod : MonoBehaviour
     {
@@ -42,7 +45,7 @@ namespace MightyMagickMod
 
             templateEffect = new HealSpellPoints();
             GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect, true);
-
+            FormulaOverrides.RegisterFormulaOverrides(mod);
             Debug.Log("Finished mod init: MightyMagickMod");
         }
       

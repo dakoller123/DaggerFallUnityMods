@@ -1,6 +1,6 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.1.1",
+    "ModVersion": "0.1.4",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "0.11.4",
@@ -8,6 +8,9 @@
     "GUID": "9a015b3a-b249-472b-9a80-1f4c7d0a19f0",
     "Files": [
         "Assets/Game/Mods/MightMagick/EntryPoint.cs",
-        "Assets/Game/Mods/MightMagick/HealSpellPoints.cs"
+        "Assets/Game/Mods/MightMagick/Formulas/FormulaOverrides.cs",
+        "Assets/Game/Mods/MightMagick/Formulas/MagickaCostFormula.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/HealSpellPoints.cs",
+        "Assets/Game/Mods/MightMagick/MightyMagick.dfmod.json"
     ]
 }

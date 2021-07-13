@@ -16,7 +16,7 @@ using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game;
 using System.Collections.Generic;
 
-namespace MightyMagickMod
+namespace MightyMagick.MagicEffects
 {
     /// <summary>
     /// Heal - Magicka
