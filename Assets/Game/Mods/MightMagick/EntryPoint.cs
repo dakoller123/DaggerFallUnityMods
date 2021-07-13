@@ -12,6 +12,10 @@ using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game.Formulas;
 using MightyMagick.MagicEffects;
 using MightyMagick.Formulas;
+using DaggerfallWorkshop.Game.Entity;
+using DaggerfallWorkshop.Game.Utility;
+using DaggerfallWorkshop.Game.Utility.ModSupport;
+using DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings;
 
 namespace MightyMagick
 {
@@ -20,6 +24,7 @@ namespace MightyMagick
         private static Mod mod;
         private HealSpellPoints templateEffect;
         public static MightyMagickMod Instance;
+        ModSettings settings;
 
         [Invoke(StateManager.StateTypes.Start, 0)]
         public static void Init(InitParams initParams)
@@ -30,22 +35,41 @@ namespace MightyMagick
             go.AddComponent<MightyMagickMod>();
         }
 
+        
 
         void Awake()
         {
+            
             Instance = this;
             InitMod();
             mod.IsReady = true;
+            //StartGameBehaviour.OnStartGame += MightyMagick_OnStartGame; 
         }
 
+        float CalculateBonusSpellPointForAllLevelups(double bonusForSingleLevelup, int playerLevel)
+        {
+            return (float)(Math.Pow(bonusForSingleLevelup, (double)playerLevel));
+        }
 
-        public void InitMod()
+        void RaiseSpellPoints()
+        {
+            var playerEntity = GameManager.Instance.PlayerEntity;
+            double multiplier = (double) settings.GetValue<int>("SpellPoints", "SpellPointsLevelupMultiplier");
+            playerEntity.Career.SpellPointMultiplierValue *= CalculateBonusSpellPointForAllLevelups(multiplier, playerEntity.Level);
+        }
+
+        private void MightyMagick_OnStartGame(object sender, EventArgs e) 
+        {
+            RaiseSpellPoints();
+        }
+
+            public void InitMod()
         {
             Debug.Log("Begin mod init: MightyMagickMod");
-
+            settings = mod.GetSettings();
             templateEffect = new HealSpellPoints();
             GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect, true);
-            FormulaOverrides.RegisterFormulaOverrides(mod);
+            FormulaOverrides.RegisterFormulaOverrides(mod);       
             Debug.Log("Finished mod init: MightyMagickMod");
         }
       
