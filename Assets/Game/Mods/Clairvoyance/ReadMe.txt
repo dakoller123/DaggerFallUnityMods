@@ -1,4 +1,4 @@
-Clairvoyance Mod 0.1.16 by kiskoller
+Clairvoyance Mod by kiskoller
 
 Notice: Mod hasn't been thoroughly tested yet! Use it at your own risk!
 

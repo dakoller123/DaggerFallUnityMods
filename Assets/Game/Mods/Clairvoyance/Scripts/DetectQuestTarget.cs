@@ -114,7 +114,8 @@ namespace ClairvoyanceMod
                 "Duration: Rounds the magic lasts.",
                 "Chance: N/A",
                 "Magnitude: N/A",
-                effectDescription);
+                effectDescription1,
+                effectDescription2);
         }
 
         private TextFile.Token[] GetSpellBookEffectDescription()
@@ -122,12 +123,14 @@ namespace ClairvoyanceMod
             return DaggerfallUnity.Instance.TextProvider.CreateTokens(
                 TextFile.Formatting.JustifyCenter,
                 DisplayName,
-                "Duration: Spell lasts %bdr + %adr per %cld level(s)",
+                "Duration: %bdr + %adr per %cld level(s)",
                 "Chance: N/A",
                 "Magnitude: N/A",
-                effectDescription);
+                effectDescription1,
+                effectDescription2);
         }
 
-        private const string effectDescription = "Caster focuses on the thing he wants to find and learns its general direction. Only works underground.";
+        private const string effectDescription1 = "Caster learns the location of his objective.";
+        private const string effectDescription2 = "Spell only works underground.";
     }
 }
