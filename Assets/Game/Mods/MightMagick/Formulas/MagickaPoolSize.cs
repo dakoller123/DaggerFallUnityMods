@@ -17,14 +17,13 @@ using DaggerfallConnect;
 
 namespace MightyMagick.Formulas
 {
-    public static class FormulaOverrides
+    public static class MagickaPoolSize
     {
-        public static void RegisterFormulaOverrides(Mod mod)
-        {
 
-            FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
-            FormulaHelper.RegisterOverride(mod, "SpellPoints", (Func<int, float, int>)MagickaPoolSize.SpellPoints);
-            FormulaHelper.RegisterOverride(mod, "CalculateSpellPointRecoveryRate", (Func< PlayerEntity, int>)SpellPointRecoveryRate.CalculateSpellPointRecoveryRate);
+        public static int SpellPoints(int intelligence, float multiplier)
+        {
+            return (int)Mathf.Floor((float)intelligence * multiplier);
         }
+
     }
 }

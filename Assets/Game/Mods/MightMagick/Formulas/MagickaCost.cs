@@ -17,7 +17,7 @@ using DaggerfallConnect;
 
 namespace MightyMagick.Formulas
 {
-    public static class MagickaCostFormula
+    public static class MagickaCost
     {
 
         // Just makes formulas more readable

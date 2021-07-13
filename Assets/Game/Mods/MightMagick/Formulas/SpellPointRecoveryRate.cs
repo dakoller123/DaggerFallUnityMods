@@ -17,14 +17,14 @@ using DaggerfallConnect;
 
 namespace MightyMagick.Formulas
 {
-    public static class FormulaOverrides
+    public static class SpellPointRecoveryRate
     {
-        public static void RegisterFormulaOverrides(Mod mod)
+        // Calculate how many spell points the player should recover per hour of rest
+        public static int CalculateSpellPointRecoveryRate(PlayerEntity player)
         {
-
-            FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
-            FormulaHelper.RegisterOverride(mod, "SpellPoints", (Func<int, float, int>)MagickaPoolSize.SpellPoints);
-            FormulaHelper.RegisterOverride(mod, "CalculateSpellPointRecoveryRate", (Func< PlayerEntity, int>)SpellPointRecoveryRate.CalculateSpellPointRecoveryRate);
+            if (player.Career.NoRegenSpellPoints)
+                return 0;
+            return Mathf.Max((int)Mathf.Floor(player.MaxMagicka / 100), 1);
         }
     }
 }
