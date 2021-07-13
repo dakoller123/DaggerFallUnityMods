@@ -1,0 +1,14 @@
+{
+    "ModTitle": "PotionOfPower",
+    "ModVersion": "0.1.4",
+    "ModAuthor": "kiskoller",
+    "ContactInfo": "kiskoller@gmail.com",
+    "DFUnity_Version": "0.11.4",
+    "ModDescription": "Buffs the Restore Power potion so that it fills the whole magicka bar.",
+    "GUID": "a20a60be-c34d-4949-aa36-8b3de2c8d1ac",
+    "Files": [
+        "Assets/Game/Mods/PotionOfPower/potionofpower.dfmod.json",
+        "Assets/Game/Mods/PotionOfPower/HealSpellPoints.cs",
+        "Assets/Game/Mods/PotionOfPower/EntryPoint.cs"
+    ]
+}

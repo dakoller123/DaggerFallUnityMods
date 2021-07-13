@@ -1,0 +1,13 @@
+{
+    "ModTitle": "MightyMagick",
+    "ModVersion": "0.1.1",
+    "ModAuthor": "kiskoller",
+    "ContactInfo": "kiskoller@gmail.com",
+    "DFUnity_Version": "0.11.4",
+    "ModDescription": "Overhauls the Magicka System",
+    "GUID": "9a015b3a-b249-472b-9a80-1f4c7d0a19f0",
+    "Files": [
+        "Assets/Game/Mods/MightMagick/EntryPoint.cs",
+        "Assets/Game/Mods/MightMagick/HealSpellPoints.cs"
+    ]
+}
