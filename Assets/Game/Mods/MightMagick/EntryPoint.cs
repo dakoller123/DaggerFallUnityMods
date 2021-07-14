@@ -22,6 +22,7 @@ namespace MightyMagick
     public class MightyMagickMod : MonoBehaviour
     {
         private static Mod mod;
+        private EffectRegister effectRegister;
         private HealSpellPoints templateEffect;
         public static MightyMagickMod Instance;
 
@@ -46,8 +47,8 @@ namespace MightyMagick
         public void InitMod()
         {
             Debug.Log("Begin mod init: MightyMagickMod");
-            templateEffect = new HealSpellPoints();
-            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect, true);
+            effectRegister = new EffectRegister();
+            effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);          
             Debug.Log("Finished mod init: MightyMagickMod");
         }

@@ -1,6 +1,6 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.2.1",
+    "ModVersion": "0.2.5",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "0.11.4",
@@ -13,6 +13,8 @@
         "Assets/Game/Mods/MightMagick/Formulas/FormulaOverrides.cs",
         "Assets/Game/Mods/MightMagick/Formulas/MagickaPoolSize.cs",
         "Assets/Game/Mods/MightMagick/Formulas/SpellPointRecoveryRate.cs",
-        "Assets/Game/Mods/MightMagick/MagicEffects/HealSpellPoints.cs"
+        "Assets/Game/Mods/MightMagick/MagicEffects/HealSpellPoints.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/EffectRegister.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/ExtraSpellPoints.cs"
     ]
 }
