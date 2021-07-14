@@ -19,6 +19,9 @@ namespace MightyMagick.Formulas
 {
     public static class MagickaPoolSize
     {
+        //Todo: somehow put this into mod setting.
+        static const float bonusMagickaPerLevel = 1.10;
+
         static float CalculateBonusSpellPointForAllLevelups(double bonusForSingleLevelup, int playerLevel)
         {
             return (float)(Math.Pow(bonusForSingleLevelup, (double)playerLevel));
@@ -26,13 +29,9 @@ namespace MightyMagick.Formulas
 
         public static int SpellPoints(int intelligence, float multiplier)
         {
-            //float levelupMultiplier = MightyMagick.MightyMagickMod.Instance.MagickaMultiplier;
-            
-            //var playerEntity = GameManager.Instance.PlayerEntity;
             float baseMagickaWithoutLevelupBonus = (float)intelligence * multiplier;
             var playerEntity = GameManager.Instance.PlayerEntity;
-            //float result = baseMagickaWithoutLevelupBonus * levelupMultiplier;
-            float result = baseMagickaWithoutLevelupBonus * CalculateBonusSpellPointForAllLevelups(1.10, playerEntity.Level);
+            float result = baseMagickaWithoutLevelupBonus * CalculateBonusSpellPointForAllLevelups(bonusMagickaPerLevel, playerEntity.Level);
 
             return (int)Mathf.Floor(result);
         }
