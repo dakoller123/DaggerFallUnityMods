@@ -19,8 +19,8 @@ namespace MightyMagick.Formulas
 {
     public static class MagickaPoolSize
     {
-        //Todo: somehow put this into mod setting.
-        static const float bonusMagickaPerLevel = 1.10;
+        //Todo: somehow put this into mod setting. 
+        const float bonusMagickaPerLevel = 1.10f;
 
         static float CalculateBonusSpellPointForAllLevelups(double bonusForSingleLevelup, int playerLevel)
         {
