@@ -24,7 +24,7 @@ namespace MightyMagick.Formulas
         {
             if (player.Career.NoRegenSpellPoints)
                 return 0;
-            return Mathf.Max((int)Mathf.Floor(player.MaxMagicka / 100), 1);
+            return Mathf.Max((int)Mathf.Floor(player.MaxMagicka / 24), 1);
         }
     }
 }
