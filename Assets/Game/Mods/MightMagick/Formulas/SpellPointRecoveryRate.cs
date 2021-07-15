@@ -17,14 +17,28 @@ using DaggerfallConnect;
 
 namespace MightyMagick.Formulas
 {
+
     public static class SpellPointRecoveryRate
     {
+        static int CalculateRecovery(PlayerEntity player, int ratio)
+        {
+            return Mathf.Max((int)Mathf.Floor(player.MaxMagicka / ratio), 1);
+        }
+
+
         // Calculate how many spell points the player should recover per hour of rest
         public static int CalculateSpellPointRecoveryRate(PlayerEntity player)
         {
             if (player.Career.NoRegenSpellPoints)
                 return 0;
-            return Mathf.Max((int)Mathf.Floor(player.MaxMagicka / 16), 1);
+
+            if (GameManager.Instance.PlayerEnterExit.IsPlayerInsideDungeon)
+                return CalculateRecovery(player, 100);
+
+            if (GameManager.Instance.PlayerEnterExit.IsPlayerInsideTavern)
+                return CalculateRecovery(player, 8);
+
+            return CalculateRecovery(player, 24);
         }
     }
 }
