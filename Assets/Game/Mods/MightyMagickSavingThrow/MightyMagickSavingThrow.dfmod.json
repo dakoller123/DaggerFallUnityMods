@@ -1,0 +1,14 @@
+{
+    "ModTitle": "MightyMagickSavingThrow",
+    "ModVersion": "0.1.0",
+    "ModAuthor": "kiskoller",
+    "ContactInfo": "kiskoller@gmail.com",
+    "DFUnity_Version": "0.11.4",
+    "ModDescription": "Mighty Magick module - Saving Throw Overhaul",
+    "GUID": "9a015b3a-b249-472b-9a80-1f4c7d0a19f0",
+    "Files": [
+        "Assets/Game/Mods/MightyMagickSavingThrow/EntryPoint.cs",
+        "Assets/Game/Mods/MightyMagickSavingThrow/MightyMagickSavingThrow.dfmod.json",
+        "Assets/Game/Mods/MightyMagickSavingThrow/Formulas/FormulaOverrides.cs"
+    ]
+}
