@@ -93,7 +93,7 @@ namespace LevitateRedoneMod
         {
             var spellMagnitude = GetMagnitude(caster);
 
-            return (0.25f * spellMagnitude);
+            return ((0.25f * spellMagnitude) + 1);
         }
 
         void StartLevitating()
