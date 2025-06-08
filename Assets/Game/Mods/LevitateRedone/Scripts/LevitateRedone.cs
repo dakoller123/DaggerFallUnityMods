@@ -37,8 +37,9 @@ namespace LevitateRedoneMod
             properties.AllowedElements = ElementTypes.Magic;
             properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker;
             properties.MagicSkill = DFCareer.MagicSkills.Thaumaturgy;
-            properties.DurationCosts = MakeEffectCosts(100, 300);
-            properties.MagnitudeCosts = MakeEffectCosts(200, 400);
+            var modsettings = LevitateRedoneMod.Instance.LevitateRedoneModSettings;
+            properties.DurationCosts = MakeEffectCosts(modsettings.DurationBaseCost, modsettings.DurationLevelCost);
+            properties.MagnitudeCosts = MakeEffectCosts(modsettings.MagnitudeBaseCost, modsettings.MagnitudeLevelCost);
             properties.ClassicKey = MakeClassicKey(14, 255);
         }
         public override string GroupName => TextManager.Instance.GetLocalizedText("levitate");

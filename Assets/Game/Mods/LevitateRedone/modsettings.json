@@ -1,0 +1,49 @@
+{
+    "Version": "0.3",
+    "Sections": [
+        {
+            "Name": "SpellCost",
+            "Description": "SpellCost Settings",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 10,
+                    "Name": "MagnitudeBaseCost",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 10,
+                    "Name": "MagnitudeLevelCost",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 10,
+                    "Name": "DurationBaseCost",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 10,
+                    "Name": "DurationLevelCost",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                }
+            ],
+            "$version": "v1"
+        }
+    ]
+}

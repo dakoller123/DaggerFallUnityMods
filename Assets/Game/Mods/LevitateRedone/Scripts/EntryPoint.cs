@@ -7,6 +7,7 @@ using UnityEngine;
 using DaggerfallWorkshop;
 using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Utility.ModSupport;
+using DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings;
 using DaggerfallWorkshop.Game.Serialization;
 using DaggerfallWorkshop.Utility;
 
@@ -17,6 +18,8 @@ namespace LevitateRedoneMod
         private static Mod mod;
         private LevitateRedoneMagicEffect templateEffect;
         public static LevitateRedoneMod Instance;
+
+        public LevitateRedoneModSettings LevitateRedoneModSettings { get; set; }
 
         [Invoke(StateManager.StateTypes.Start, 0)]
         public static void Init(InitParams initParams)
@@ -30,7 +33,16 @@ namespace LevitateRedoneMod
 
         void Awake()
         {
+
+            ModSettings settings = mod.GetSettings();
+
+            LevitateRedoneModSettings = new LevitateRedoneModSettings();
+            LevitateRedoneModSettings.MagnitudeBaseCost = settings.GetValue<int>("SpellCost", "MagnitudeBaseCost");
+            LevitateRedoneModSettings.MagnitudeLevelCost = settings.GetValue<int>("SpellCost", "MagnitudeLevelCost");
+            LevitateRedoneModSettings.DurationBaseCost  = settings.GetValue<int>("SpellCost", "DurationBaseCost");
+            LevitateRedoneModSettings.DurationLevelCost  = settings.GetValue<int>("SpellCost", "DurationLevelCost");
             Instance = this;
+
             InitMod();
             mod.IsReady = true;
         }
