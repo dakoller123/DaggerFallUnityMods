@@ -10,13 +10,13 @@ using DaggerfallWorkshop.Game.Utility.ModSupport;
 using DaggerfallWorkshop.Game.Serialization;
 using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game.Formulas;
-using MightyMagick.Formulas;
+using MightyMagick.SavingThrow.Formulas;
 using DaggerfallWorkshop.Game.Entity;
 using DaggerfallWorkshop.Game.Utility;
 using DaggerfallWorkshop.Game.Utility.ModSupport;
 using DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings;
 
-namespace MightyMagick
+namespace MightyMagick.SavingThrow
 {
     public class MightyMagickSavingThrowMod : MonoBehaviour
     {

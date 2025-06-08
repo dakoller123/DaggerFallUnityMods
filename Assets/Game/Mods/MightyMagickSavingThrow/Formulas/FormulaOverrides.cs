@@ -16,7 +16,7 @@ using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallConnect;
 using DaggerfallWorkshop.Game.Formulas;
 
-namespace MightyMagick.Formulas
+namespace MightyMagick.SavingThrow.Formulas
 {
     public static class FormulaOverrides
     {
