@@ -1,6 +1,6 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.5",
+    "ModVersion": "0.5.4",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "1.1.1",
@@ -17,6 +17,7 @@
         "Assets/Game/Mods/MightMagick/MagicEffects/EffectRegister.cs",
         "Assets/Game/Mods/MightMagick/MagicEffects/ExtraSpellPoints.cs",
         "Assets/Game/Mods/MightMagick/modsettings.json",
-        "Assets/Game/Mods/MightMagick/MightyMagickModSettings.cs"
+        "Assets/Game/Mods/MightMagick/MightyMagickModSettings.cs",
+        "Assets/Game/Mods/MightMagick/Formulas/SpellAbsorb.cs"
     ]
 }

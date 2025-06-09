@@ -164,6 +164,21 @@
                 }
             ],
             "$version": "v1"
+        },
+        {
+            "Name": "SpellAbsorbModule",
+            "Description": "Experimental module that fixes the spell absorb related exploits",
+            "IsAdvanced": true,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "Enabled",
+                    "Description": "The module is experimental, it relies on code not present in DFU v1.1.1 Do not use.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
         }
     ]
 }

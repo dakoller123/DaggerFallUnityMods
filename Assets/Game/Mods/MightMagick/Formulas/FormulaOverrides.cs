@@ -42,7 +42,13 @@ namespace MightyMagick.Formulas
             if (settings.SavingThrowSettings.Enabled)
             {
                 FormulaHelper.RegisterOverride(mod, "SavingThrow", (Func<DFCareer.Elements, DFCareer.EffectFlags, DaggerfallEntity, int, int>)SavingThrow);
-            }            
+            }           
+            
+            // if (settings.AbsorbSettings.Enabled)
+            // {
+            //     FormulaHelper.RegisterOverride(mod, "TryAbsorb", (Func<IEntityEffect , TargetTypes, DaggerfallEntity, DaggerfallEntity, SpellAbsorption, int>)SpellAbsorb.TryAbsorption);
+            // }     
+            FormulaHelper.RegisterOverride(mod, "TryAbsorption", (Func<IEntityEffect , TargetTypes, DaggerfallEntity, DaggerfallEntity, SpellAbsorption, int>)SpellAbsorb.TryAbsorption);
         }
 
 

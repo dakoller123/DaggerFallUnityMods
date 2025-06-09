@@ -75,6 +75,9 @@ namespace MightyMagick
 
             result.SavingThrowSettings.Enabled = settings.GetValue<bool>("SavingThrowModule", "Enabled");
 
+            result.AbsorbSettings.Enabled = settings.GetValue<bool>("SpellAbsorbModule", "Enabled");
+
+
             return result;
         }
 
