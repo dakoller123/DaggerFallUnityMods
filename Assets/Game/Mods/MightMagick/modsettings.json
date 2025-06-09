@@ -3,7 +3,7 @@
     "Sections": [
         {
             "Name": "SavingThrowModule",
-            "Description": null,
+            "Description": "This module deals with resistances, eg. resistance partially reduces damage, not fully negate it",
             "IsAdvanced": false,
             "Keys": [
                 {
@@ -18,22 +18,31 @@
         },
         {
             "Name": "MagickaEnchantModule",
-            "Description": null,
+            "Description": "This module deals with the 'Extra Spell Pts' Enchant when you use the ItemMaker.",
             "IsAdvanced": false,
             "Keys": [
                 {
-                    "Value": true,
+                    "Value": false,
                     "Name": "Enabled",
                     "Description": null,
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 200,
+                    "Value": 35,
+                    "Name": "EnchantMagnitude",
+                    "Description": "Magicka gained from the enchant",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 }
             ],
             "$version": "v1"
         },
         {
             "Name": "MagickaPoolModule",
-            "Description": null,
+            "Description": "Increase your maximum spell points count during levelup, similar to health",
             "IsAdvanced": false,
             "Keys": [
                 {
@@ -48,7 +57,7 @@
         },
         {
             "Name": "PotionModule",
-            "Description": null,
+            "Description": "Boosts the Restore Power potion to fully recover your magicka",
             "IsAdvanced": false,
             "Keys": [
                 {
@@ -57,13 +66,33 @@
                     "Description": null,
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 100,
+                    "Name": "PotionMagnitude",
+                    "Description": "How strongth the potion is. Affected by the calculation type.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Options": [
+                        "Percentage",
+                        "Flat"
+                    ],
+                    "Value": 0,
+                    "Name": "MagnitudeCalculation",
+                    "Description": "To restore an X percent of the magicka bar, or X amount of points.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.MultipleChoiceKey"
                 }
             ],
             "$version": "v1"
         },
         {
             "Name": "SpellCostModule",
-            "Description": null,
+            "Description": "Changes spell cost formula. Below 100 skill its vanilla, after that each point reduces cost by 1%",
             "IsAdvanced": false,
             "Keys": [
                 {
@@ -78,7 +107,7 @@
         },
         {
             "Name": "MagickaRegenModule",
-            "Description": null,
+            "Description": "Changes magicka regen rate based on location. The values define how many hours need to pass to regel from 0% to 100%.",
             "IsAdvanced": false,
             "Keys": [
                 {

@@ -1,9 +1,9 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.4.2",
+    "ModVersion": "0.4.4",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
-    "DFUnity_Version": "0.11.4",
+    "DFUnity_Version": "1.1.1",
     "ModDescription": "Overhauls the Magicka System",
     "GUID": "9a015b3a-b249-472b-9a80-1f4c7d0a19f0",
     "Files": [
@@ -15,6 +15,8 @@
         "Assets/Game/Mods/MightMagick/Formulas/SpellPointRecoveryRate.cs",
         "Assets/Game/Mods/MightMagick/MagicEffects/HealSpellPoints.cs",
         "Assets/Game/Mods/MightMagick/MagicEffects/EffectRegister.cs",
-        "Assets/Game/Mods/MightMagick/MagicEffects/ExtraSpellPoints.cs"
+        "Assets/Game/Mods/MightMagick/MagicEffects/ExtraSpellPoints.cs",
+        "Assets/Game/Mods/MightMagick/modsettings.json",
+        "Assets/Game/Mods/MightMagick/MightyMagickModSettings.cs"
     ]
 }

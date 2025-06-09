@@ -13,6 +13,7 @@ namespace MightyMagick
     public class MagickaEnchantSettings
     {
         public bool Enabled {get;set;}
+        public int EnchantMagnitude { get; set; }
     }
 
     public class SpellCostSettings 
@@ -33,9 +34,18 @@ namespace MightyMagick
 
     }
 
+    public enum PotionMagnitudeCalculationTypes
+    {
+        Percentage,
+        Flat
+    }
+
+
     public class PotionSettings
     {
         public bool Enabled { get; set; }
+        public int PotionMagnitude {get;set;}
+        public PotionMagnitudeCalculationTypes  MagnitudeCalculation { get; set; }
     }
 
     public class RegenSettings
