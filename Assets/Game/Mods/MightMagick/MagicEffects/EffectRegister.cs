@@ -8,10 +8,18 @@ namespace MightyMagick.MagicEffects
         private ExtraSpellPts extraSpellPts;
         public void RegisterNewMagicEffects()
         {
-            healSpellPoints = new HealSpellPoints();
-            extraSpellPts = new ExtraSpellPts();
-            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(healSpellPoints, true);
-            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(extraSpellPts, true);
+            var settings = MightyMagickMod.Instance.MightyMagickModSettings;
+            
+            if (settings.PotionSettings.Enabled)
+            {
+                GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(new HealSpellPoints(), true);
+            }
+            
+            if (settings.MagickaEnchantSettings.Enabled)
+            {
+                GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(new ExtraSpellPts(), true);
+            }
+            
         }
     }
 }

@@ -25,6 +25,8 @@ namespace MightyMagick
         private EffectRegister effectRegister;
         private HealSpellPoints templateEffect;
         public static MightyMagickMod Instance;
+        
+        public MightyMagickModSettings MightyMagickModSettings { get; set; } = new MightyMagickModSettings();
 
         [Invoke(StateManager.StateTypes.Start, 0)]
         public static void Init(InitParams initParams)
@@ -37,11 +39,43 @@ namespace MightyMagick
 
         void Awake()
         {
-            
             Instance = this;
+            this.MightyMagickModSettings = ParseSettings();
             InitMod();
-            mod.IsReady = true;
-           
+            mod.IsReady = true;        
+        }
+
+        MightyMagickModSettings ParseSettings()
+        {
+            var result = new MightyMagickModSettings();
+            ModSettings settings = mod.GetSettings();
+
+            result.RegenSettings.Enabled = settings.GetValue<bool>("MagickaRegenModule", "Enabled");
+            result.RegenSettings.RegenRateTavern = settings.GetValue<int>("MagickaRegenModule", "RegenRateTavern");
+            result.RegenSettings.RegenRateOutdoor  = settings.GetValue<int>("MagickaRegenModule", "RegenRateOutdoor");
+            result.RegenSettings.RegenRateDungeon  = settings.GetValue<int>("MagickaRegenModule", "RegenRateDungeon");
+
+            result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
+
+            result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
+            
+            result.PotionSettings.MagnitudeCalculation = 
+                (settings.GetValue<int>("PotionModule", "MagnitudeCalculation") == 1)
+                ? PotionMagnitudeCalculationTypes.Flat
+                : PotionMagnitudeCalculationTypes.Percentage;
+
+            result.PotionSettings.PotionMagnitude = settings.GetValue<int>("PotionModule", "PotionMagnitude");
+
+            result.MagickaPoolSettings.Enabled = settings.GetValue<bool>("MagickaPoolModule", "Enabled");
+            result.MagickaPoolSettings.LevelUpFlatIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpFlatIncrease");
+            result.MagickaPoolSettings.LevelUpPercentageIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpPercentageIncrease");
+
+            result.MagickaEnchantSettings.Enabled = settings.GetValue<bool>("MagickaEnchantModule", "Enabled");
+            result.MagickaEnchantSettings.EnchantMagnitude = settings.GetValue<int>("MagickaEnchantModule", "EnchantMagnitude");
+
+            result.SavingThrowSettings.Enabled = settings.GetValue<bool>("SavingThrowModule", "Enabled");
+
+            return result;
         }
 
         public void InitMod()

@@ -15,6 +15,7 @@ using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game;
 using System.Collections.Generic;
+using System;
 
 namespace MightyMagick.MagicEffects
 {
@@ -28,7 +29,7 @@ namespace MightyMagick.MagicEffects
         public override void SetProperties()
         {
             properties.Key = EffectKey;
-            properties.SupportMagnitude = false;
+            properties.SupportMagnitude = true;
             properties.AllowedTargets = EntityEffectBroker.TargetFlags_Self;
             properties.AllowedElements = EntityEffectBroker.ElementFlags_MagicOnly;
             properties.AllowedCraftingStations = MagicCraftingStations.PotionMaker;
@@ -40,11 +41,13 @@ namespace MightyMagick.MagicEffects
         public override void SetPotionProperties()
         {
             // Magnitude 5-5 + 4-4 per 1 levels
-            //EffectSettings restorePowerSettings = SetEffectMagnitude(DefaultEffectSettings(), 5, 5, 4, 4, 1);
+            var modPotionSettings = MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings;
+
+            EffectSettings restorePowerSettings = SetEffectMagnitude(DefaultEffectSettings(), modPotionSettings.PotionMagnitude, modPotionSettings.PotionMagnitude, 0, 0, 1);
             PotionRecipe restorePower = new PotionRecipe(
                 "restorePower",
                 75,
-                DefaultEffectSettings(),
+                restorePowerSettings,
                 (int)DaggerfallWorkshop.Game.Items.MiscellaneousIngredients1.Nectar,
                 (int)DaggerfallWorkshop.Game.Items.MetalIngredients.Silver,
                 (int)DaggerfallWorkshop.Game.Items.CreatureIngredients1.Werewolfs_blood,
@@ -65,8 +68,14 @@ namespace MightyMagick.MagicEffects
                 return;
 
             // Implement effect
-            entityBehaviour.Entity.SetMagicka(entityBehaviour.Entity.MaxMagicka);
+            int magnitude = GetMagnitude(caster);
+            var modPotionSettings = MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings;
+            var maxMagicka = entityBehaviour.Entity.MaxMagicka;
+            int increaseValue = (modPotionSettings.MagnitudeCalculation ==  PotionMagnitudeCalculationTypes.Percentage)
+                ? (maxMagicka * magnitude / 100)                
+                : magnitude;
 
+            entityBehaviour.Entity.IncreaseMagicka(increaseValue);
         }
     }
 }

@@ -2,18 +2,165 @@
     "Version": null,
     "Sections": [
         {
-            "Name": "SpellPoints",
-            "Description": "SpellPoints related settings",
+            "Name": "SavingThrowModule",
+            "Description": "This module deals with resistances, eg. resistance partially reduces damage, not fully negate it",
             "IsAdvanced": false,
             "Keys": [
                 {
-                    "Min": 1.0,
-                    "Max": 10.0,
-                    "Value": 10.0,
-                    "Name": "SpellPointsLevelupMultiplier",
-                    "Description": "Levelup raise percentage",
+                    "Value": false,
+                    "Name": "Enabled",
+                    "Description": null,
                     "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "MagickaEnchantModule",
+            "Description": "This module deals with the 'Extra Spell Pts' Enchant when you use the ItemMaker.",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "Enabled",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 200,
+                    "Value": 35,
+                    "Name": "EnchantMagnitude",
+                    "Description": "Magicka gained from the enchant",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "MagickaPoolModule",
+            "Description": "Change the Max magicka formula to raise magicka every time the player char levels up.",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "Enabled",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 10,
+                    "Name": "LevelUpPercentageIncrease",
+                    "Description": "Each levelup magicka is increased by X% of the current raw max magicka.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 0,
+                    "Name": "LevelUpFlatIncrease",
+                    "Description": "Each levelup magicka is increased by a flat X value.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "PotionModule",
+            "Description": "Boosts the Restore Power potion to fully recover your magicka",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "Enabled",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 100,
+                    "Name": "PotionMagnitude",
+                    "Description": "How strongth the potion is. Affected by the calculation type.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Options": [
+                        "Percentage",
+                        "Flat"
+                    ],
+                    "Value": 0,
+                    "Name": "MagnitudeCalculation",
+                    "Description": "To restore an X percent of the magicka bar, or X amount of points.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.MultipleChoiceKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "SpellCostModule",
+            "Description": "Changes spell cost formula. Below 100 skill its vanilla, after that each point reduces cost by 1%",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "Enabled",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "MagickaRegenModule",
+            "Description": "Changes magicka regen rate based on location. The values define how many hours need to pass to regel from 0% to 100%.",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "Enabled",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 8,
+                    "Name": "RegenRateTavern",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 24,
+                    "Name": "RegenRateOutdoor",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 100,
+                    "Name": "RegenRateDungeon",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 }
             ],
             "$version": "v1"
