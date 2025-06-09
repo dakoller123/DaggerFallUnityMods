@@ -59,10 +59,12 @@ namespace MightyMagick
 
             result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
             var calculationType = settings.GetValue<string>("PotionModule", "MagnitudeCalculation");
-            result.PotionSettings.MagnitudeCalculation = Enum.Parse<PotionMagnitudeCalculationTypes>(calculationType);
-            result.PotionSettings.PotionMagnitude = settings..GetValue<int>("PotionModule", "PotionMagnitude");
+            result.PotionSettings.MagnitudeCalculation =(PotionMagnitudeCalculationTypes) Enum.Parse(typeof(PotionMagnitudeCalculationTypes), calculationType);
+            result.PotionSettings.PotionMagnitude = settings.GetValue<int>("PotionModule", "PotionMagnitude");
 
             result.MagickaPoolSettings.Enabled = settings.GetValue<bool>("MagickaPoolModule", "Enabled");
+            result.MagickaPoolSettings.LevelUpFlatIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpFlatIncrease");
+            result.MagickaPoolSettings.LevelUpPercentageIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpPercentageIncrease");
 
             result.MagickaEnchantSettings.Enabled = settings.GetValue<bool>("MagickaEnchantModule", "Enabled");
             result.MagickaEnchantSettings.EnchantMagnitude = settings.GetValue<int>("MagickaEnchantModule", "EnchantMagnitude");

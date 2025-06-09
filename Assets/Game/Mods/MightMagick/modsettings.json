@@ -42,7 +42,7 @@
         },
         {
             "Name": "MagickaPoolModule",
-            "Description": "Increase your maximum spell points count during levelup, similar to health",
+            "Description": "Change the Max magicka formula to raise magicka every time the player char levels up.",
             "IsAdvanced": false,
             "Keys": [
                 {
@@ -51,6 +51,24 @@
                     "Description": null,
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 10,
+                    "Name": "LevelUpPercentageIncrease",
+                    "Description": "Each levelup magicka is increased by X% of the current raw max magicka.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 0,
+                    "Name": "LevelUpFlatIncrease",
+                    "Description": "Each levelup magicka is increased by a flat X value.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 }
             ],
             "$version": "v1"

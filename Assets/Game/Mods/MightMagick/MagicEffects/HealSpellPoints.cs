@@ -70,19 +70,12 @@ namespace MightyMagick.MagicEffects
             // Implement effect
             int magnitude = GetMagnitude(caster);
             var modPotionSettings = MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings;
-
-            var result = CalculateResultMagicka(magnitude, entityBehaviour.Entity.MaxMagicka, modPotionSettings);
-            
-            entityBehaviour.Entity.IncreaseMagicka(result);
-        }
-
-        private int CalculateResultMagicka(int magnitude,int maxMagicka, PotionSettings settings)
-        {
-            int flatValue = (settings.MagnitudeCalculation ==  PotionMagnitudeCalculationTypes.Percentage)
-                ? (maxMagicka * magnitude / 100)
+            var maxMagicka = entityBehaviour.Entity.MaxMagicka;
+            int increaseValue = (modPotionSettings.MagnitudeCalculation ==  PotionMagnitudeCalculationTypes.Percentage)
+                ? (maxMagicka * magnitude / 100)                
                 : magnitude;
 
-            return Math.Max((currentMagicka + flatValue, maxMagicka));
+            entityBehaviour.Entity.IncreaseMagicka(increaseValue);
         }
     }
 }

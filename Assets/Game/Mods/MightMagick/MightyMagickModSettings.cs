@@ -31,7 +31,8 @@ namespace MightyMagick
     public class MagickaPoolSettings 
     {
         public bool Enabled { get; set; }
-
+        public int LevelUpPercentageIncrease { get; set; } 
+        public int LevelUpFlatIncrease { get; set; }
     }
 
     public enum PotionMagnitudeCalculationTypes
