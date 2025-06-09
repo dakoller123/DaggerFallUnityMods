@@ -2,6 +2,35 @@
     "Version": null,
     "Sections": [
         {
+            "Name": "SpellSelectionModule",
+            "Description": "This module limits the kind of spells the player character can buy, make or cast",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "LimitSpellbuying",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "LimitSpellmaking",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "LimitSpellVendorList",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
             "Name": "SavingThrowModule",
             "Description": "This module deals with resistances, eg. resistance partially reduces damage, not fully negate it",
             "IsAdvanced": false,

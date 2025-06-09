@@ -83,7 +83,9 @@ namespace MightyMagick
             Debug.Log("Begin mod init: MightyMagickMod");
             effectRegister = new EffectRegister();
             effectRegister.RegisterNewMagicEffects();
-            FormulaOverrides.RegisterFormulaOverrides(mod);          
+            FormulaOverrides.RegisterFormulaOverrides(mod);
+
+            DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellBook, typeof(MightyMagicSpellBookWindow));       
             Debug.Log("Finished mod init: MightyMagickMod");
         }
       
