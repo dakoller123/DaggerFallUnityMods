@@ -47,7 +47,7 @@ namespace MightyMagick.MagicEffects
             PotionRecipe restorePower = new PotionRecipe(
                 "restorePower",
                 75,
-                DefaultEffectSettings(),
+                restorePowerSettings,
                 (int)DaggerfallWorkshop.Game.Items.MiscellaneousIngredients1.Nectar,
                 (int)DaggerfallWorkshop.Game.Items.MetalIngredients.Silver,
                 (int)DaggerfallWorkshop.Game.Items.CreatureIngredients1.Werewolfs_blood,
