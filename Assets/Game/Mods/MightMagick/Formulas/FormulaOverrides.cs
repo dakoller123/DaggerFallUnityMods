@@ -22,14 +22,27 @@ namespace MightyMagick.Formulas
     {
         public static void RegisterFormulaOverrides(Mod mod)
         {
-            if (MightyMagickMod.Instance.MightyMagickModSettings.RegenSettings.Enabled)
+            var settings = MightyMagickMod.Instance.MightyMagickModSettings;
+
+            if (settings.RegenSettings.Enabled)
             {
                 FormulaHelper.RegisterOverride(mod, "CalculateSpellPointRecoveryRate", (Func< PlayerEntity, int>)SpellPointRecoveryRate.CalculateSpellPointRecoveryRate);
             }
-            FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
-            FormulaHelper.RegisterOverride(mod, "SpellPoints", (Func<int, float, int>)MagickaPoolSize.SpellPoints);
+
+            if (settings.SpellCostSettings.Enabled)
+            {
+                FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
+            }
             
-            FormulaHelper.RegisterOverride(mod, "SavingThrow", (Func<DFCareer.Elements, DFCareer.EffectFlags, DaggerfallEntity, int, int>)SavingThrow);
+            if (settings.MagickaPoolSettings.Enabled)
+            {
+                FormulaHelper.RegisterOverride(mod, "SpellPoints", (Func<int, float, int>)MagickaPoolSize.SpellPoints);
+            }
+
+            if (settings.SavingThrowSettings.Enabled)
+            {
+                FormulaHelper.RegisterOverride(mod, "SavingThrow", (Func<DFCareer.Elements, DFCareer.EffectFlags, DaggerfallEntity, int, int>)SavingThrow);
+            }            
         }
 
 
