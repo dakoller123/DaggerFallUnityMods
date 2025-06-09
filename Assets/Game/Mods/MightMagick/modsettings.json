@@ -2,18 +2,43 @@
     "Version": null,
     "Sections": [
         {
-            "Name": "SpellPoints",
-            "Description": "SpellPoints related settings",
+            "Name": "RegenModule",
+            "Description": null,
             "IsAdvanced": false,
             "Keys": [
                 {
-                    "Min": 1.0,
-                    "Max": 10.0,
-                    "Value": 10.0,
-                    "Name": "SpellPointsLevelupMultiplier",
-                    "Description": "Levelup raise percentage",
+                    "Value": true,
+                    "Name": "Enabled",
+                    "Description": null,
                     "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 8,
+                    "Name": "RegenRateTavern",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 24,
+                    "Name": "RegenRateOutdoor",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 100,
+                    "Name": "RegenRateDungeon",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 }
             ],
             "$version": "v1"
