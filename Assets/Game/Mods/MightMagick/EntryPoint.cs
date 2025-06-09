@@ -39,22 +39,33 @@ namespace MightyMagick
 
         void Awake()
         {
+            Instance = this;
+            this.MightyMagickModSettings = ParseSettings();
+            InitMod();
+            mod.IsReady = true;        
+        }
+
+        MightyMagickModSettings ParseSettings()
+        {
+            var result = new MightyMagickModSettings();
             ModSettings settings = mod.GetSettings();
 
-            MightyMagickModSettings.RegenSettings.Enabled = settings.GetValue<bool>("RegenModule", "Enabled");
-            MightyMagickModSettings.RegenSettings.RegenRateTavern = settings.GetValue<int>("RegenModule", "RegenRateTavern");
-            MightyMagickModSettings.RegenSettings.RegenRateOutdoor  = settings.GetValue<int>("RegenModule", "RegenRateOutdoor");
-            MightyMagickModSettings.RegenSettings.RegenRateDungeon  = settings.GetValue<int>("RegenModule", "RegenRateDungeon");
-            Instance = this;
+            result.RegenSettings.Enabled = settings.GetValue<bool>("MagickaRegenModule", "Enabled");
+            result.RegenSettings.RegenRateTavern = settings.GetValue<int>("MagickaRegenModule", "RegenRateTavern");
+            result.RegenSettings.RegenRateOutdoor  = settings.GetValue<int>("MagickaRegenModule", "RegenRateOutdoor");
+            result.RegenSettings.RegenRateDungeon  = settings.GetValue<int>("MagickaRegenModule", "RegenRateDungeon");
 
-            InitMod();
-            mod.IsReady = true;
+            result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
 
+            result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
 
-            Instance = this;
-            InitMod();
-            mod.IsReady = true;
-           
+            result.MagickaPoolSettings.Enabled = settings.GetValue<bool>("MagickaPoolModule", "Enabled");
+
+            result.MagickaEnchantSettings.Enabled = settings.GetValue<bool>("MagickaEnchantModule", "Enabled");
+
+            result.SavingThrowSettings.Enabled = settings.GetValue<bool>("SavingThrowModule", "Enabled");
+
+            return result;
         }
 
         public void InitMod()
