@@ -26,9 +26,6 @@ namespace MightyMagick.MagicEffects
     /// </summary>
     public class ExtraSpellPts : BaseEntityEffect
     {
-        //Todo: move this to mod settings
-        const int maxIncrease = 35;
-
         public static readonly string EffectKey = EnchantmentTypes.ExtraSpellPts.ToString();
 
         const float nearbyRadius = 18f;             // Reasonably matched to classic with testing
@@ -83,7 +80,7 @@ namespace MightyMagick.MagicEffects
         #region Payloads
 
         /// <summary>
-        /// Adds +35 to maximum spell points when certain conditions are met.
+        /// Adds to maximum spell points when certain conditions are met.
         /// </summary>
         public override void ConstantEffect()
         {
@@ -135,7 +132,10 @@ namespace MightyMagick.MagicEffects
 
             // Apply extra spell points when conditions are met
             if (apply)
-                entityBehaviour.Entity.ChangeMaxMagickaModifier(maxIncrease);
+            {
+                var magnitude = MightyMagickMod.Instance.MightyMagickModSettings.MagickaEnchantSettings.EnchantMagnitude;
+                entityBehaviour.Entity.ChangeMaxMagickaModifier(magnitude);
+            }   
         }
 
         bool IsFullMoon()
