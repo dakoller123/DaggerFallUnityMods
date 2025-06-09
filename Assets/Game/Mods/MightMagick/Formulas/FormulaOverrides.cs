@@ -22,10 +22,13 @@ namespace MightyMagick.Formulas
     {
         public static void RegisterFormulaOverrides(Mod mod)
         {
-
+            if (MightyMagickMod.Instance.MightyMagickModSettings.RegenSettings.Enabled)
+            {
+                FormulaHelper.RegisterOverride(mod, "CalculateSpellPointRecoveryRate", (Func< PlayerEntity, int>)SpellPointRecoveryRate.CalculateSpellPointRecoveryRate);
+            }
             FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
             FormulaHelper.RegisterOverride(mod, "SpellPoints", (Func<int, float, int>)MagickaPoolSize.SpellPoints);
-            FormulaHelper.RegisterOverride(mod, "CalculateSpellPointRecoveryRate", (Func< PlayerEntity, int>)SpellPointRecoveryRate.CalculateSpellPointRecoveryRate);
+            
             FormulaHelper.RegisterOverride(mod, "SavingThrow", (Func<DFCareer.Elements, DFCareer.EffectFlags, DaggerfallEntity, int, int>)SavingThrow);
         }
 

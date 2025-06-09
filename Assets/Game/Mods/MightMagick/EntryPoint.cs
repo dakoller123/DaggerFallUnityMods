@@ -25,6 +25,8 @@ namespace MightyMagick
         private EffectRegister effectRegister;
         private HealSpellPoints templateEffect;
         public static MightyMagickMod Instance;
+        
+        public MightyMagickModSettings MightyMagickModSettings { get; set; } = new MightyMagickModSettings();
 
         [Invoke(StateManager.StateTypes.Start, 0)]
         public static void Init(InitParams initParams)
@@ -37,7 +39,18 @@ namespace MightyMagick
 
         void Awake()
         {
-            
+            ModSettings settings = mod.GetSettings();
+
+            MightyMagickModSettings.RegenSettings.Enabled = settings.GetValue<bool>("RegenModule", "Enabled");
+            MightyMagickModSettings.RegenSettings.RegenRateTavern = settings.GetValue<int>("RegenModule", "RegenRateTavern");
+            MightyMagickModSettings.RegenSettings.RegenRateOutdoor  = settings.GetValue<int>("RegenModule", "RegenRateOutdoor");
+            MightyMagickModSettings.RegenSettings.RegenRateDungeon  = settings.GetValue<int>("RegenModule", "RegenRateDungeon");
+            Instance = this;
+
+            InitMod();
+            mod.IsReady = true;
+
+
             Instance = this;
             InitMod();
             mod.IsReady = true;
