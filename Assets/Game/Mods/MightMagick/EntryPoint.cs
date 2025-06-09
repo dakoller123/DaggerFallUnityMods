@@ -58,8 +58,12 @@ namespace MightyMagick
             result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
 
             result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
-            var calculationType = settings.GetValue<string>("PotionModule", "MagnitudeCalculation");
-            result.PotionSettings.MagnitudeCalculation =(PotionMagnitudeCalculationTypes) Enum.Parse(typeof(PotionMagnitudeCalculationTypes), calculationType);
+            
+            result.PotionSettings.MagnitudeCalculation = 
+                (settings.GetValue<int>("PotionModule", "MagnitudeCalculation") == 1)
+                ? PotionMagnitudeCalculationTypes.Flat
+                : PotionMagnitudeCalculationTypes.Percentage;
+
             result.PotionSettings.PotionMagnitude = settings.GetValue<int>("PotionModule", "PotionMagnitude");
 
             result.MagickaPoolSettings.Enabled = settings.GetValue<bool>("MagickaPoolModule", "Enabled");
