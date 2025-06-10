@@ -28,7 +28,7 @@ namespace MightyMagick.Formulas
             if (!absorbSettings.AllowNonDestructionAbsorbs && effect.Properties.MagicSkill != DFCareer.MagicSkills.Destruction)
                 return 0;
 
-            if (!absorbSettings.AbsorbOwnSpells && casterEntity == targetEntity)
+            if (!absorbSettings.AllowOwnSpellAbsorbs && casterEntity == targetEntity)
                 return 0;    
 
             // Get casting cost for this effect
@@ -54,7 +54,7 @@ namespace MightyMagick.Formulas
             {
                 int resistances = new ResistanceAggregator(FormulaHelper.GetElementType(effect), FormulaHelper.GetEffectFlags(effect), targetEntity, 0).AggregatedResistances;
                 
-                chance = ApplyResistanceToAbsorbChance(chance, resistance);
+                chance = ApplyResistanceToAbsorbChance(chance, resistances);
             }
            
             if (chance >= 100 ||  DaggerfallWorkshop.Game.Utility.Dice100.SuccessRoll(chance))
@@ -66,9 +66,8 @@ namespace MightyMagick.Formulas
 
         static int ApplyResistanceToAbsorbChance(int baseChance, int resistance)
         {
-            baseChance = Math.Clamp(baseChance, 0, 100);
-
             float multiplier;
+
             if (resistance < 0)
             {
                 // Map -100 → 0, -50 → 0.5, 0 → 1
@@ -82,18 +81,16 @@ namespace MightyMagick.Formulas
 
             float modifiedChance = baseChance * multiplier;
 
-            return (int)Math.Clamp(modifiedChance, 0, 100);
+            return (int)Mathf.Clamp(modifiedChance, 0, 100);
         }
 
 
         static int GetAbsorbChance(IEntityEffect effect, DaggerfallEntity targetEntity, SpellAbsorption absorbEffectOnTarget)
         {
-            int chance = (CheckCareerBasedAbsorption(effect, targetEntity) || targetEntity.IsAbsorbingSpells) 
-                ? 100 
-                : GetEffectBasedAbsorptionChance(effect, absorbEffectOnTarget, targetEntity);
-            
-            return chance;
-           
+            int effectBasedChance = GetEffectBasedAbsorptionChance(effect, absorbEffectOnTarget, targetEntity);
+            return (CheckCareerBasedAbsorption(effect, targetEntity) || targetEntity.IsAbsorbingSpells) 
+                ? 100 + effectBasedChance
+                : effectBasedChance;
         }
 
         static int GetEffectCastingCost(IEntityEffect effect, TargetTypes targetType, DaggerfallEntity casterEntity)

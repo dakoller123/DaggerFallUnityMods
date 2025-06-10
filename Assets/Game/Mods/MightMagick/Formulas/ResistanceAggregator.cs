@@ -12,8 +12,6 @@ using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallConnect;
-using DaggerfallWorkshop.Game.Formulas;
-
 
 namespace MightyMagick.Formulas
 {
