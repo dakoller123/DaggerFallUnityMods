@@ -17,8 +17,8 @@ namespace MightyMagick.Formulas
     {
         public static int TryAbsorption(IEntityEffect effect, TargetTypes targetType, DaggerfallEntity casterEntity, DaggerfallEntity targetEntity, SpellAbsorption absorbEffectOnTarget)
         {
+            
             var absorbSettings = MightyMagickMod.Instance.MightyMagickModSettings.AbsorbSettings;
-
             var absorbSpellPointsOut = 0;
 
             // Effect cannot be null
@@ -52,8 +52,8 @@ namespace MightyMagick.Formulas
 
             if (absorbSettings.CalculateWithResistances)
             {
-                int resistances = new ResistanceAggregator(FormulaHelper.GetElementType(effect), FormulaHelper.GetEffectFlags(effect), targetEntity, 0).AggregatedResistances;
-                
+                int resistances = new ResistanceAggregator(FormulaHelper.GetElementType(effect), FormulaHelper.GetEffectFlags(effect), targetEntity, 0).AggregateResistances();
+
                 chance = ApplyResistanceToAbsorbChance(chance, resistances);
             }
            
@@ -95,8 +95,8 @@ namespace MightyMagick.Formulas
 
         static int GetEffectCastingCost(IEntityEffect effect, TargetTypes targetType, DaggerfallEntity casterEntity)
         {            
-            (int _, int spellPointCost) = FormulaHelper.CalculateEffectCosts(effect, effect.Settings, casterEntity);
-            spellPointCost = FormulaHelper.ApplyTargetCostMultiplier(spellPointCost, targetType);
+            FormulaHelper.SpellCost spellCost = FormulaHelper.CalculateEffectCosts(effect, effect.Settings, casterEntity);
+            var spellPointCost = FormulaHelper.ApplyTargetCostMultiplier(spellCost.spellPointCost, targetType);
 
             // Spells always cost at least 5 spell points
             // Otherwise it's possible for absorbs to make spell point pool go down as spell costs 5 but caster absorbs 0

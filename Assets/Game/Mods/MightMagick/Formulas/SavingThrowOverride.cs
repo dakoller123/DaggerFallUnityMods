@@ -23,10 +23,9 @@ namespace MightyMagick.Formulas
             DFCareer.EffectFlags effectFlags = FormulaHelper.GetEffectFlags(sourceEffect);
             DFCareer.Elements elementType = FormulaHelper.GetElementType(sourceEffect);
             int modifier = FormulaHelper.GetResistanceModifier(effectFlags, target);
-
             if (sourceEffect.Properties.SupportMagnitude)
             {                
-                int resistances = new ResistanceAggregator(elementType, effectFlags, target, modifier).AggregatedResistances;
+                int resistances = new ResistanceAggregator(elementType, effectFlags, target, modifier*2).AggregateResistances();
                 return 100-resistances;
             }
             else

@@ -142,7 +142,10 @@ namespace MightyMagick.Formulas
             return 0;
         }
 
-        public int AggregatedResistances{get => AggregateCareer() + AggregateRacials() + AggregateBiography() + AggregateMagicEffect() + modifier;}
+        public int AggregateResistances()
+        { 
+            return AggregateCareer() + AggregateRacials() + AggregateBiography() + AggregateMagicEffect() + modifier;
+        }
     }
 }
 

@@ -167,7 +167,7 @@
         },
         {
             "Name": "SpellAbsorbModule",
-            "Description": "Experimental module that fixes the spell absorb related exploits",
+            "Description": "DO NOT USE WITH DFU1.1.1 or 1.2.Test1! Experimental module that fixes the spell absorb related exploits",
             "IsAdvanced": true,
             "Keys": [
                 {
