@@ -13,6 +13,23 @@ namespace MightyMagick
     public class AbsorbSettings
     {
         public bool Enabled {get;set;}
+        public AbsorbSpellSchoolRestrictions AbsorbSpellSchoolRestriction { get; set; }
+        public AbsorbOwnSpellRestrictions AbsorbOwnSpellRestriction { get; set; }
+        public bool CalculateWithCaster { get; set; } 
+        public bool CalculateWithResistances {get;set; }
+    }
+
+    public enum AbsorbOwnSpellRestrictions 
+    {
+        All,
+        OnlyAoe,
+        None
+    }
+
+    public enum AbsorbSpellSchoolRestrictions
+    {
+        OnlyDestruction,
+        None
     }
 
     public class MagickaEnchantSettings
@@ -30,7 +47,6 @@ namespace MightyMagick
     public class SavingThrowSettings 
     {
         public bool Enabled { get; set; }
-
     }
 
     public class MagickaPoolSettings 
