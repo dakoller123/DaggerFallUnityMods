@@ -75,6 +75,12 @@ namespace MightyMagick
 
             result.SavingThrowSettings.Enabled = settings.GetValue<bool>("SavingThrowModule", "Enabled");
 
+            result.AbsorbSettings.Enabled = settings.GetValue<bool>("SpellAbsorbModule", "Enabled");
+            result.AbsorbSettings.AllowNonDestructionAbsorbs = settings.GetValue<bool>("SpellAbsorbModule", "AllowNonDestructionAbsorbs");
+            result.AbsorbSettings.AllowOwnSpellAbsorbs = settings.GetValue<bool>("SpellAbsorbModule", "AllowOwnSpellAbsorbs");
+            result.AbsorbSettings.CalculateSpellCostWithCaster = settings.GetValue<bool>("SpellAbsorbModule", "CalculateSpellCostWithCaster");
+            result.AbsorbSettings.CalculateWithResistances = settings.GetValue<bool>("SpellAbsorbModule", "CalculateWithResistances");
+
             return result;
         }
 

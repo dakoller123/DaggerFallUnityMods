@@ -1,7 +1,3 @@
-// Project:   Clairvoyance for Daggerfall Unity
-// Author:    kiskoller
-// Based on code from:    DunnyOfPenwick
-
 using System;
 using UnityEngine;
 using DaggerfallWorkshop;

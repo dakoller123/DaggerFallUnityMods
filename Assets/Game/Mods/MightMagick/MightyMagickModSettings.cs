@@ -7,9 +7,18 @@ namespace MightyMagick
         public PotionSettings PotionSettings {get;set; } = new PotionSettings();
         public SavingThrowSettings SavingThrowSettings {get;set;} = new SavingThrowSettings();
         public MagickaPoolSettings MagickaPoolSettings {get;set;} = new MagickaPoolSettings(); 
-
         public MagickaEnchantSettings MagickaEnchantSettings {get;set;} = new MagickaEnchantSettings();
+        public AbsorbSettings AbsorbSettings {get;set;} = new AbsorbSettings();
     }
+    public class AbsorbSettings
+    {
+        public bool Enabled {get;set;}
+        public bool AllowNonDestructionAbsorbs { get; set; }
+        public bool AllowOwnSpellAbsorbs { get; set; }
+        public bool CalculateSpellCostWithCaster { get; set; } 
+        public bool CalculateWithResistances {get;set; }
+    }
+
     public class MagickaEnchantSettings
     {
         public bool Enabled {get;set;}
@@ -25,7 +34,6 @@ namespace MightyMagick
     public class SavingThrowSettings 
     {
         public bool Enabled { get; set; }
-
     }
 
     public class MagickaPoolSettings 
