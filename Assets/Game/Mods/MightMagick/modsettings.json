@@ -176,7 +176,35 @@
                     "Description": "The module is experimental, it relies on code not present in DFU v1.1.1 Do not use.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                }
+                },
+                {
+                    "Value": true,
+                    "Name": "AllowNonDestructionAbsorbs",
+                    "Description": "In base game only Destruction spells are absorbed. Enable to allow all spells",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "AllowOwnSpellAbsorbs",
+                    "Description": "In base game you can absorb your own spells which is a huge exploit giving you aoe spells for free",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "CalculateSpellCostWithCaster",
+                    "Description": "In base game the amount of spell points absorbed depends on your the receivers skill, not the caster.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "CalculateWithResistances",
+                    "Description": "Enable to affect the absorb chance via immmunities and tolerances.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }                                   
             ],
             "$version": "v1"
         }

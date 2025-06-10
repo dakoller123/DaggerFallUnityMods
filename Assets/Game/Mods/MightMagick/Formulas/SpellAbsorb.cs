@@ -1,7 +1,3 @@
-// Project:   Clairvoyance for Daggerfall Unity
-// Author:    kiskoller
-// Based on code from:    DunnyOfPenwick
-
 using System;
 using UnityEngine;
 using DaggerfallWorkshop;
@@ -29,13 +25,16 @@ namespace MightyMagick.Formulas
             if (effect == null)
                 return 0;
 
-            if (absorbSettings.AbsorbSpellSchoolRestriction == AbsorbSpellSchoolRestrictions.OnlyDestruction && effect.Properties.MagicSkill != DFCareer.MagicSkills.Destruction)
+            if (!absorbSettings.AllowNonDestructionAbsorbs && effect.Properties.MagicSkill != DFCareer.MagicSkills.Destruction)
                 return 0;
+
+            if (!absorbSettings.AbsorbOwnSpells && casterEntity == targetEntity)
+                return 0;    
 
             // Get casting cost for this effect
             // Costs are calculated as if target cast the spell, not the actual caster
             // Note that if player self-absorbs a spell this will be equal anyway
-            var entityForCastCost = absorbSettings.CalculateWithCaster
+            var entityForCastCost = absorbSettings.CalculateSpellCostWithCaster
                 ? casterEntity
                 : targetEntity;
 
@@ -51,22 +50,50 @@ namespace MightyMagick.Formulas
 
             var chance = GetAbsorbChance(effect, targetEntity, absorbEffectOnTarget);
 
-            if (DaggerfallWorkshop.Game.Utility.Dice100.SuccessRoll(chance))
+            if (absorbSettings.CalculateWithResistances)
+            {
+                int resistances = new ResistanceAggregator(FormulaHelper.GetElementType(effect), FormulaHelper.GetEffectFlags(effect), targetEntity, 0).AggregatedResistances;
+                
+                chance = ApplyResistanceToAbsorbChance(chance, resistance);
+            }
+           
+            if (chance >= 100 ||  DaggerfallWorkshop.Game.Utility.Dice100.SuccessRoll(chance))
             {
                 return absorbSpellPointsOut;
             }
             return 0;
         }
 
+        static int ApplyResistanceToAbsorbChance(int baseChance, int resistance)
+        {
+            baseChance = Math.Clamp(baseChance, 0, 100);
+
+            float multiplier;
+            if (resistance < 0)
+            {
+                // Map -100 → 0, -50 → 0.5, 0 → 1
+                multiplier = 1.0f + (resistance / 100.0f);  // Linear: -100 to 0 becomes 0 to 1
+            }
+            else
+            {
+                // Map 0 → 1, 100 → 1.5
+                multiplier = 1.0f + (resistance / 200.0f);  // Same as before
+            }
+
+            float modifiedChance = baseChance * multiplier;
+
+            return (int)Math.Clamp(modifiedChance, 0, 100);
+        }
+
+
         static int GetAbsorbChance(IEntityEffect effect, DaggerfallEntity targetEntity, SpellAbsorption absorbEffectOnTarget)
         {
             int chance = (CheckCareerBasedAbsorption(effect, targetEntity) || targetEntity.IsAbsorbingSpells) 
                 ? 100 
                 : GetEffectBasedAbsorptionChance(effect, absorbEffectOnTarget, targetEntity);
-
-            int resistances = new ResistanceAggregator(FormulaHelper.GetElementType(effect), FormulaHelper.GetEffectFlags(effect), targetEntity, 0).AggregatedResistances;
-
-            return chance * resistances / 100;
+            
+            return chance;
+           
         }
 
         static int GetEffectCastingCost(IEntityEffect effect, TargetTypes targetType, DaggerfallEntity casterEntity)
@@ -124,7 +151,5 @@ namespace MightyMagick.Formulas
 
             return false;
         }
-
-
     }
 }
