@@ -1,7 +1,3 @@
-// Project:   Clairvoyance for Daggerfall Unity
-// Author:    kiskoller
-// Based on code from:    DunnyOfPenwick
-
 using System;
 using UnityEngine;
 using DaggerfallWorkshop;
@@ -39,10 +35,10 @@ namespace ClairvoyanceMod
         public void InitMod()
         {
             Debug.Log("Begin mod init: ClairvoyanceMod");
-
-            templateEffect = new DetectQuest();
-            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect);
-
+            
+            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(new DetectQuest());
+            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(new DetectLocation());
+            GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(new DetectShops());
             Debug.Log("Finished mod init: ClairvoyanceMod");
         }
       
