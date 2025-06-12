@@ -1,15 +1,5 @@
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System;
-using UnityEngine;
-using DaggerfallWorkshop;
 using DaggerfallWorkshop.Game;
-using DaggerfallWorkshop.Game.Utility.ModSupport;
-using DaggerfallWorkshop.Game.Serialization;
-using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game.Entity;
-using DaggerfallWorkshop.Game.MagicAndEffects;
-using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallConnect;
 
