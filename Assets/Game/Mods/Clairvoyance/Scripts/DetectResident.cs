@@ -1,8 +1,8 @@
 // Project:         Clairvoyance Mod
 // Mod author:      kiskoller
 // Original Author: Gavin Clayton (interkarma@dfworkshop.net)
-// Contributors:    
-// 
+// Contributors:
+//
 // Notes:
 //  Still WiP.
 
@@ -21,9 +21,6 @@ using System.Runtime.CompilerServices;
 
 namespace ClairvoyanceMod
 {
-    /// <summary>
-    /// Detect Quest
-    /// </summary>
     public class DetectResident : DetectEffect
     {
         public static readonly string EffectKey = "Detect-Resident";
@@ -40,6 +37,11 @@ namespace ClairvoyanceMod
             properties.ShowSpellIcon = true;
             properties.DisableReflectiveEnumeration = true;
         }
+        protected override void AddState(IncumbentEffect incumbent)
+        {
+            // Stack my rounds onto incumbent
+            incumbent.RoundsRemaining += RoundsRemaining;
+        }
 
         public override string GroupName => TextManager.Instance.GetLocalizedText("detect");
 
@@ -50,45 +52,65 @@ namespace ClairvoyanceMod
 
         private void RevealBuildings()
         {
-            Debug.Log("ClairvoyanceMod: RevealBuildings called");
+            Debug.Log($"[ClairvoyanceMod] {nameof(RevealBuildings)} called");
+            Debug.Log($"[ClairvoyanceMod] Marking key subject location on map");
             TalkManager.Instance.MarkKeySubjectLocationOnMap();
+
             var mapId = GameManager.Instance.PlayerGPS.CurrentMapID;
-            Debug.Log($"ClairvoyanceMod: MapId: {mapId}");
+            Debug.Log($"[ClairvoyanceMod] Current MapID: {mapId}");
+
             var saveData = TalkManager.Instance.GetConversationSaveData();
+            Debug.Log($"[ClairvoyanceMod] Loaded save data: {saveData}");
+
             var dictQuestInfo = saveData.dictQuestInfo;
+            Debug.Log($"[ClairvoyanceMod] Found {dictQuestInfo.Count} quest entries in save data");
+
             foreach (ulong questId in GameManager.Instance.QuestMachine.GetAllActiveQuests())
             {
-                Debug.Log($"ClairvoyanceMod: Checking quest: {questId}");
+                Debug.Log($"[ClairvoyanceMod] Processing quest: {questId}");
                 Quest quest = GameManager.Instance.QuestMachine.GetQuest(questId);
 
                 if (dictQuestInfo.ContainsKey(questId))
                 {
-                    var questInfo = dictQuestInfo[questId]; // Get questInfo containing orphaned list of quest resources
+                    var questInfo = dictQuestInfo[questId];
+                    Debug.Log($"[ClairvoyanceMod] Found quest info for {questId}");
 
-                    QuestResource[] questResources = quest.GetAllResources(typeof(Place)); // Get list of place quest resources
+                    QuestResource[] questResources = quest.GetAllResources(typeof(Place));
+                    Debug.Log($"[ClairvoyanceMod] Found {questResources.Length} place resources");
+
                     for (int i = 0; i < questResources.Length; i++)
                     {
                         Place place = (Place)questResources[i];
                         string key = place.Symbol.Name;
-                        Debug.Log($"ClairvoyanceMod: Checking place: {key}");
+                        Debug.Log($"[ClairvoyanceMod] Checking place: {key} (MapID: {place.SiteDetails.mapId})");
 
-                        // Always ensure we are locating building key in current location, not just same building key in another location within same quest
-                        if (place.SiteDetails.mapId != mapId )
+                        if (place.SiteDetails.mapId != mapId)
+                        {
+                            Debug.Log($"[ClairvoyanceMod] Skipping place {key} - MapID mismatch");
                             continue;
+                        }
 
                         if (questInfo.resourceInfo.ContainsKey(key))
                         {
-                            Debug.Log($"ClairvoyanceMod: Setting place {key} BuildingLocationHintTypeGiven to true");
-                            questInfo.resourceInfo[key].questPlaceResourceHintTypeReceived = TalkManager.QuestResourceInfo.BuildingLocationHintTypeGiven.LocationWasMarkedOnMap;
+                            Debug.Log($"[ClairvoyanceMod] Found matching resource key: {key}");
+                            Debug.Log($"[ClairvoyanceMod] Setting hint type for {key} to: {TalkManager.QuestResourceInfo.BuildingLocationHintTypeGiven.LocationWasMarkedOnMap}");
+
+                            questInfo.resourceInfo[key].questPlaceResourceHintTypeReceived =
+                                TalkManager.QuestResourceInfo.BuildingLocationHintTypeGiven.LocationWasMarkedOnMap;
+
+                            Debug.Log($"[ClairvoyanceMod] Marking building {buildingInfo.buildingKey} as discovered");
                             GameManager.Instance.PlayerGPS.DiscoverBuilding(buildingInfo.buildingKey);
                         }
                     }
                 }
             }
-            Debug.Log($"ClairvoyanceMod: Restoring questdata {saveData}");
+
+            Debug.Log($"[ClairvoyanceMod] Restoring quest data: {saveData}");
             TalkManager.Instance.RestoreConversationData(saveData);
+            Debug.Log($"[ClairvoyanceMod] Final map location mark");
             TalkManager.Instance.MarkKeySubjectLocationOnMap();
         }
+
 
         public override void Start(EntityEffectManager manager, DaggerfallEntityBehaviour caster = null)
         {
@@ -98,12 +120,12 @@ namespace ClairvoyanceMod
 
         public override void End()
         {
-            base.End(); 
-            if (ExteriorAutomap.instance != null)           
+            base.End();
+            if (ExteriorAutomap.instance != null)
             {
                 ExteriorAutomap.instance.RevealUndiscoveredBuildings = false;
             }
-            
+
         }
 
         public override void MagicRound()
