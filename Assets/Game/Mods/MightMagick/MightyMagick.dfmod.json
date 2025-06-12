@@ -1,6 +1,6 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.6.2",
+    "ModVersion": "0.7.13",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "1.1.1",
@@ -20,6 +20,8 @@
         "Assets/Game/Mods/MightMagick/MightyMagickModSettings.cs",
         "Assets/Game/Mods/MightMagick/Formulas/SpellAbsorb.cs",
         "Assets/Game/Mods/MightMagick/Formulas/SavingThrowOverride.cs",
-        "Assets/Game/Mods/MightMagick/Formulas/ResistanceAggregator.cs"
+        "Assets/Game/Mods/MightMagick/Formulas/ResistanceAggregator.cs",
+        "Assets/Game/Mods/MightMagick/SpellProgressionModule/MightyMagickEntityEffectManager.cs",
+        "Assets/Game/Mods/MightMagick/SpellProgressionModule/EntityEffectManagerPatcher.cs"
     ]
 }
