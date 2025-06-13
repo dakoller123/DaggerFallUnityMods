@@ -3,8 +3,11 @@ using System.IO;
 using System.Reflection;
 using DaggerfallConnect;
 using DaggerfallWorkshop.Game;
+using DaggerfallWorkshop.Game.Entity;
 using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallWorkshop.Game.MagicAndEffects;
+using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
+using MightyMagick.Formulas;
 using UnityEngine;
 
 namespace  MightyMagick.SpellProgressionModule
@@ -19,6 +22,28 @@ namespace  MightyMagick.SpellProgressionModule
         private static ConstructorInfo harmonyMethodCtor;
         private static Type harmonyMethodType;
         private static float spellCostMultiplier;
+
+        public static bool Prefix_TryAbsorbtion(EntityEffectManager __instance, ref bool __result, IEntityEffect effect, TargetTypes targetType,
+            DaggerfallEntity casterEntity, out int absorbSpellPointsOut)
+        {
+            var targetEntity = __instance.EntityBehaviour.Entity;
+            SpellAbsorption absorbEffect = __instance.FindIncumbentEffect<SpellAbsorption>() as SpellAbsorption;
+            var resultSpellAbsorb =
+                SpellAbsorb.TryAbsorption(effect, targetType, casterEntity, targetEntity, absorbEffect);
+
+            if (resultSpellAbsorb > 0)
+            {
+                absorbSpellPointsOut = resultSpellAbsorb;
+                __result = true;
+            }
+            else
+            {
+                absorbSpellPointsOut = 0;
+                __result = false;
+            }
+
+            return false;
+        }
 
         public static bool Prefix_SetReadySpell(EntityEffectBundle spell, bool noSpellPointCost)
         {
@@ -43,6 +68,15 @@ namespace  MightyMagick.SpellProgressionModule
 
         public static bool TryApplyPatch()
         {
+            var spellProgSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellProgressionSettings;
+            var absorbSettings = MightyMagickMod.Instance.MightyMagickModSettings.AbsorbSettings;
+
+            if (!spellProgSettings.Enabled && !absorbSettings.Enabled)
+            {
+                Debug.Log("MightyMagick - TryApplyPatch - Harmony is not needed");
+                return true;
+            }
+
             spellCostMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.SpellProgressionSettings
                 .SpellCostCheckMultiplier;
             string harmonyPath = Path.Combine(Application.streamingAssetsPath, HarmonyAssemblyPath);
@@ -57,7 +91,8 @@ namespace  MightyMagick.SpellProgressionModule
             {
                 Setup(harmonyPath);
 
-                PatchSetReadySpell();
+                if (absorbSettings.Enabled) PatchTryAbsorb();
+                if (spellProgSettings.Enabled) PatchSetReadySpell();
 
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;
@@ -113,6 +148,30 @@ namespace  MightyMagick.SpellProgressionModule
             Debug.Log("Harmony: SetReadySpell() patched successfully.");
         }
 
+        private static void PatchTryAbsorb()
+        {
+            MethodInfo targetMethod = typeof(DaggerfallWorkshop.Game.MagicAndEffects.EntityEffectManager)
+                .GetMethod("TryAbsorption", BindingFlags.NonPublic | BindingFlags.Instance,
+                    null,
+                    new Type[] { typeof(IEntityEffect), typeof(TargetTypes), typeof(DaggerfallEntity),  typeof(int).MakeByRefType()},
+                    null);
 
+            MethodInfo prefixMethod = typeof(EntityEffectManagerPatcher)
+                .GetMethod(
+                    "Prefix_TryAbsorbtion",
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            object harmonyPrefix = harmonyMethodCtor.Invoke(new object[] { prefixMethod });
+
+            patchMethod.Invoke(harmonyInstance, new object[]
+            {
+                targetMethod,
+                harmonyPrefix,
+                null, null, null
+            });
+
+            Debug.Log("Harmony: TryAbsorption() patched successfully.");
+        }
     }
 }
