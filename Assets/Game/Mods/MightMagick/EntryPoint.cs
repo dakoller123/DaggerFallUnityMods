@@ -70,6 +70,8 @@ namespace MightyMagick
             result.AbsorbSettings.CalculateSpellCostWithCaster = settings.GetValue<bool>("SpellAbsorbModule", "CalculateSpellCostWithCaster");
             result.AbsorbSettings.CalculateWithResistances = settings.GetValue<bool>("SpellAbsorbModule", "CalculateWithResistances");
 
+            result.SpellProgressionSettings.Enabled = settings.GetValue<bool>("SpellProgressionModule", "Enabled");
+            result.SpellProgressionSettings.SpellCostCheckMultiplier = settings.GetValue<float>("SpellProgressionModule", "SpellCostCheckMultiplier");
             return result;
         }
 
@@ -79,7 +81,7 @@ namespace MightyMagick
             effectRegister = new EffectRegister();
             effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);
-            EntityEffectManagerPatcher.TryApplyPatch();
+            if (Instance.MightyMagickModSettings.SpellProgressionSettings.Enabled) EntityEffectManagerPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
         }
     }
