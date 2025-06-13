@@ -7,7 +7,7 @@
             "IsAdvanced": false,
             "Keys": [
                 {
-                    "Value": false,
+                    "Value": true,
                     "Name": "Enabled",
                     "Description": null,
                     "$version": "v1",
@@ -88,7 +88,7 @@
                 {
                     "Min": 0,
                     "Max": 100,
-                    "Value": 100,
+                    "Value": 30,
                     "Name": "PotionMagnitude",
                     "Description": "How strongth the potion is. Affected by the calculation type.",
                     "$version": "v1",
@@ -114,7 +114,7 @@
             "IsAdvanced": false,
             "Keys": [
                 {
-                    "Value": true,
+                    "Value": false,
                     "Name": "Enabled",
                     "Description": null,
                     "$version": "v1",
@@ -167,11 +167,11 @@
         },
         {
             "Name": "SpellAbsorbModule",
-            "Description": "DO NOT USE WITH DFU1.1.1 or 1.2.Test1! Experimental module that fixes the spell absorb related exploits",
+            "Description": "Requires Harmony! Balances Spell Absorbtion.",
             "IsAdvanced": true,
             "Keys": [
                 {
-                    "Value": false,
+                    "Value": true,
                     "Name": "Enabled",
                     "Description": "The module is experimental, it relies on code not present in DFU v1.1.1 Do not use.",
                     "$version": "v1",
@@ -210,11 +210,11 @@
         },
         {
             "Name": "SpellProgressionModule",
-            "Description": "This module deals with progression of spells. Requires Harmony,",
+            "Description": "Requires Harmony! Spells have skill requirements",
             "IsAdvanced": true,
             "Keys": [
                 {
-                    "Value": false,
+                    "Value": true,
                     "Name": "Enabled",
                     "Description": null,
                     "$version": "v1",

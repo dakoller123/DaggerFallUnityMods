@@ -81,7 +81,7 @@ namespace MightyMagick
             effectRegister = new EffectRegister();
             effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);
-            if (Instance.MightyMagickModSettings.SpellProgressionSettings.Enabled) EntityEffectManagerPatcher.TryApplyPatch();
+            EntityEffectManagerPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
         }
     }
