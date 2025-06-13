@@ -1,21 +1,6 @@
-// Project:         Daggerfall Tools For Unity
-// Copyright:       Copyright (C) 2009-2021 Daggerfall Workshop
-// Web Site:        http://www.dfworkshop.net
-// License:         MIT License (http://www.opensource.org/licenses/mit-license.php)
-// Source Code:     https://github.com/Interkarma/daggerfall-unity
-// Original Author: Hazelnut
-// Contributors:    
-// 
-// Notes:
-//
-
 using DaggerfallWorkshop.Game.Entity;
-using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects;
-using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game;
-using System.Collections.Generic;
-using System;
 
 namespace MightyMagick.MagicEffects
 {

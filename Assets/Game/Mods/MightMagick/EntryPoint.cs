@@ -1,21 +1,10 @@
-// Project:   Clairvoyance for Daggerfall Unity
-// Author:    kiskoller
-// Based on code from:    DunnyOfPenwick
-
-using System;
 using UnityEngine;
-using DaggerfallWorkshop;
 using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Utility.ModSupport;
-using DaggerfallWorkshop.Game.Serialization;
-using DaggerfallWorkshop.Utility;
-using DaggerfallWorkshop.Game.Formulas;
 using MightyMagick.MagicEffects;
 using MightyMagick.Formulas;
-using DaggerfallWorkshop.Game.Entity;
-using DaggerfallWorkshop.Game.Utility;
-using DaggerfallWorkshop.Game.Utility.ModSupport;
 using DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings;
+using MightyMagick.SpellProgressionModule;
 
 namespace MightyMagick
 {
@@ -25,7 +14,7 @@ namespace MightyMagick
         private EffectRegister effectRegister;
         private HealSpellPoints templateEffect;
         public static MightyMagickMod Instance;
-        
+
         public MightyMagickModSettings MightyMagickModSettings { get; set; } = new MightyMagickModSettings();
 
         [Invoke(StateManager.StateTypes.Start, 0)]
@@ -42,7 +31,7 @@ namespace MightyMagick
             Instance = this;
             this.MightyMagickModSettings = ParseSettings();
             InitMod();
-            mod.IsReady = true;        
+            mod.IsReady = true;
         }
 
         MightyMagickModSettings ParseSettings()
@@ -58,8 +47,8 @@ namespace MightyMagick
             result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
 
             result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
-            
-            result.PotionSettings.MagnitudeCalculation = 
+
+            result.PotionSettings.MagnitudeCalculation =
                 (settings.GetValue<int>("PotionModule", "MagnitudeCalculation") == 1)
                 ? PotionMagnitudeCalculationTypes.Flat
                 : PotionMagnitudeCalculationTypes.Percentage;
@@ -75,6 +64,14 @@ namespace MightyMagick
 
             result.SavingThrowSettings.Enabled = settings.GetValue<bool>("SavingThrowModule", "Enabled");
 
+            result.AbsorbSettings.Enabled = settings.GetValue<bool>("SpellAbsorbModule", "Enabled");
+            result.AbsorbSettings.AllowNonDestructionAbsorbs = settings.GetValue<bool>("SpellAbsorbModule", "AllowNonDestructionAbsorbs");
+            result.AbsorbSettings.AllowOwnSpellAbsorbs = settings.GetValue<bool>("SpellAbsorbModule", "AllowOwnSpellAbsorbs");
+            result.AbsorbSettings.CalculateSpellCostWithCaster = settings.GetValue<bool>("SpellAbsorbModule", "CalculateSpellCostWithCaster");
+            result.AbsorbSettings.CalculateWithResistances = settings.GetValue<bool>("SpellAbsorbModule", "CalculateWithResistances");
+
+            result.SpellProgressionSettings.Enabled = settings.GetValue<bool>("SpellProgressionModule", "Enabled");
+            result.SpellProgressionSettings.SpellCostCheckMultiplier = settings.GetValue<float>("SpellProgressionModule", "SpellCostCheckMultiplier");
             return result;
         }
 
@@ -84,10 +81,9 @@ namespace MightyMagick
             effectRegister = new EffectRegister();
             effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);
-
-            DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellBook, typeof(MightyMagicSpellBookWindow));       
+            DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellBook, typeof(MightyMagicSpellBookWindow));
+            EntityEffectManagerPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
         }
-      
     }
 }
