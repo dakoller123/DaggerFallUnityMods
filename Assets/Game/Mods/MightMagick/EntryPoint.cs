@@ -81,7 +81,7 @@ namespace MightyMagick
             effectRegister = new EffectRegister();
             effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);
-            DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellBook, typeof(MightyMagicSpellBookWindow));
+            DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellMaker, typeof(MightyMagickSpellMakerWindow));
             EntityEffectManagerPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
         }
