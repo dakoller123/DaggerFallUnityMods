@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using DaggerfallConnect.FallExe;
 using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game.Entity;
-using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop;

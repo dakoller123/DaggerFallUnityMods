@@ -1,10 +1,6 @@
 using DaggerfallWorkshop.Game.Entity;
-using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects;
-using DaggerfallWorkshop.Utility;
 using DaggerfallWorkshop.Game;
-using System.Collections.Generic;
-using System;
 
 namespace MightyMagick.MagicEffects
 {

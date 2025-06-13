@@ -204,7 +204,31 @@
                     "Description": "Enable to affect the absorb chance via immmunities and tolerances.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                }                                   
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "SpellProgressionModule",
+            "Description": "This module deals with progression of spells. Requires Harmony,",
+            "IsAdvanced": true,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "Enabled",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0.1,
+                    "Max": 3.0,
+                    "Value": 1.0,
+                    "Name": "SpellCostCheckMultiplier",
+                    "Description": "Multiplies the spell cost with this value when checking it against the skill. Higher multiplier means stronger limitations on spells you can cast.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                }
             ],
             "$version": "v1"
         }
