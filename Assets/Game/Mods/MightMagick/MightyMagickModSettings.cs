@@ -15,7 +15,9 @@ namespace MightyMagick
 
     public class SpellProgressionSettings
     {
-        public bool Enabled { get; set; }
+        public bool LimitSpellCastBySkill { get; set; }
+        public bool LimitSpellBuyBySkill { get; set; }
+        public bool LimitSpellMakerToKnownEffects { get; set; }
         public float SpellCostCheckMultiplier { get; set; }
     }
 

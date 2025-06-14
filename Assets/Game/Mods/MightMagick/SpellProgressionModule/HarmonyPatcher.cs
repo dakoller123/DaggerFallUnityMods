@@ -1,18 +1,16 @@
 using System;
 using System.IO;
 using System.Reflection;
-using DaggerfallConnect;
-using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Entity;
-using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallWorkshop.Game.MagicAndEffects;
-using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
-using MightyMagick.Formulas;
+using DaggerfallWorkshop.Game.UserInterface;
+using DaggerfallWorkshop.Game.UserInterfaceWindows;
+using Game.Mods.MightMagick.SpellProgressionModule;
 using UnityEngine;
 
 namespace  MightyMagick.SpellProgressionModule
 {
-    public static class EntityEffectManagerPatcher
+    public static class HarmonyPatcher
     {
         private const string HarmonyAssemblyPath = "Mods/0Harmony.dll";
         private const string HarmonyPatchId = "mightymagickmod.entityeffectmanager.patch";
@@ -21,64 +19,18 @@ namespace  MightyMagick.SpellProgressionModule
         private static MethodInfo patchMethod;
         private static ConstructorInfo harmonyMethodCtor;
         private static Type harmonyMethodType;
-        private static float spellCostMultiplier;
-
-        public static bool Prefix_TryAbsorbtion(EntityEffectManager __instance, ref bool __result, IEntityEffect effect, TargetTypes targetType,
-            DaggerfallEntity casterEntity, out int absorbSpellPointsOut)
-        {
-            var targetEntity = __instance.EntityBehaviour.Entity;
-            SpellAbsorption absorbEffect = __instance.FindIncumbentEffect<SpellAbsorption>() as SpellAbsorption;
-            var resultSpellAbsorb =
-                SpellAbsorb.TryAbsorption(effect, targetType, casterEntity, targetEntity, absorbEffect);
-
-            if (resultSpellAbsorb > 0)
-            {
-                absorbSpellPointsOut = resultSpellAbsorb;
-                __result = true;
-            }
-            else
-            {
-                absorbSpellPointsOut = 0;
-                __result = false;
-            }
-
-            return false;
-        }
-
-        public static bool Prefix_SetReadySpell(EntityEffectBundle spell, bool noSpellPointCost)
-        {
-            if (GameManager.Instance.PlayerEntity == null) return true;
-            if (spell.CasterEntityBehaviour?.Entity != GameManager.Instance.PlayerEntity) return true;
-            var casterEntity = GameManager.Instance.PlayerEntity;
-
-            foreach (var effect in spell.Settings.Effects)
-            {
-                var (_, spellPointCost) = FormulaHelper.CalculateEffectCosts(effect, casterEntity);
-                var effectTemplate = GameManager.Instance.EntityEffectBroker.GetEffectTemplate(effect.Key);
-                var skillValue = GameManager.Instance.PlayerEntity.Skills.GetLiveSkillValue((DFCareer.Skills)effectTemplate.Properties.MagicSkill);
-                if (skillValue >= 100) continue;
-                var checkedSpellPointCost = (int)Mathf.Round(spellPointCost * spellCostMultiplier);
-                if (skillValue >= checkedSpellPointCost) continue;
-                DaggerfallUI.AddHUDText($"Not skilled enough to cast this yet.");
-                return false;
-            }
-
-            return true;
-        }
 
         public static bool TryApplyPatch()
         {
             var spellProgSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellProgressionSettings;
             var absorbSettings = MightyMagickMod.Instance.MightyMagickModSettings.AbsorbSettings;
 
-            if (!spellProgSettings.Enabled && !absorbSettings.Enabled)
+            if (!spellProgSettings.LimitSpellCastBySkill && !absorbSettings.Enabled && !spellProgSettings.LimitSpellBuyBySkill)
             {
                 Debug.Log("MightyMagick - TryApplyPatch - Harmony is not needed");
                 return true;
             }
 
-            spellCostMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.SpellProgressionSettings
-                .SpellCostCheckMultiplier;
             string harmonyPath = Path.Combine(Application.streamingAssetsPath, HarmonyAssemblyPath);
 
             if (!File.Exists(harmonyPath))
@@ -92,7 +44,8 @@ namespace  MightyMagick.SpellProgressionModule
                 Setup(harmonyPath);
 
                 if (absorbSettings.Enabled) PatchTryAbsorb();
-                if (spellProgSettings.Enabled) PatchSetReadySpell();
+                if (spellProgSettings.LimitSpellCastBySkill) PatchSetReadySpell();
+                if (spellProgSettings.LimitSpellBuyBySkill) PatchSpellBuy();
 
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;
@@ -130,7 +83,7 @@ namespace  MightyMagick.SpellProgressionModule
                     new Type[] { typeof(EntityEffectBundle), typeof(bool)},
                     null);
 
-            MethodInfo prefixMethod = typeof(EntityEffectManagerPatcher)
+            MethodInfo prefixMethod = typeof(EntityEffectManagerPatches)
                 .GetMethod(
                     "Prefix_SetReadySpell",
                     BindingFlags.Public | BindingFlags.Static
@@ -156,7 +109,7 @@ namespace  MightyMagick.SpellProgressionModule
                     new Type[] { typeof(IEntityEffect), typeof(TargetTypes), typeof(DaggerfallEntity),  typeof(int).MakeByRefType()},
                     null);
 
-            MethodInfo prefixMethod = typeof(EntityEffectManagerPatcher)
+            MethodInfo prefixMethod = typeof(EntityEffectManagerPatches)
                 .GetMethod(
                     "Prefix_TryAbsorbtion",
                     BindingFlags.Public | BindingFlags.Static
@@ -172,6 +125,41 @@ namespace  MightyMagick.SpellProgressionModule
             });
 
             Debug.Log("Harmony: TryAbsorption() patched successfully.");
+        }
+
+        private static void PatchSpellBuy()
+        {
+            MethodInfo targetMethod = typeof(DaggerfallSpellBookWindow).GetMethod(
+                "BuyButton_OnMouseClick",
+                BindingFlags.Instance | BindingFlags.NonPublic
+            );
+
+            MethodInfo prefixMethod = typeof(SpellBookPatches)
+                .GetMethod(
+                    "Prefix_BuyButton_OnMouseClick",
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            if (prefixMethod == null)
+            {
+                Debug.LogError("Harmony: Failed to find Prefix_BuyButton_OnMouseClick");
+            }
+
+            if (targetMethod == null)
+            {
+                Debug.LogError("Harmony: Failed to find BuyButton_OnMouseClick");
+            }
+
+            object harmonyPrefix = harmonyMethodCtor.Invoke(new object[] { prefixMethod });
+
+            patchMethod.Invoke(harmonyInstance, new object[]
+            {
+                targetMethod,
+                harmonyPrefix,
+                null, null, null
+            });
+
+            Debug.Log("Harmony: BuyButton_OnMouseClick() patched successfully.");
         }
     }
 }

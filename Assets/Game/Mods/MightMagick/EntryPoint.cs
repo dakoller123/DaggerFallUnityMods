@@ -70,7 +70,9 @@ namespace MightyMagick
             result.AbsorbSettings.CalculateSpellCostWithCaster = settings.GetValue<bool>("SpellAbsorbModule", "CalculateSpellCostWithCaster");
             result.AbsorbSettings.CalculateWithResistances = settings.GetValue<bool>("SpellAbsorbModule", "CalculateWithResistances");
 
-            result.SpellProgressionSettings.Enabled = settings.GetValue<bool>("SpellProgressionModule", "Enabled");
+            result.SpellProgressionSettings.LimitSpellCastBySkill = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellCastBySkill");
+            result.SpellProgressionSettings.LimitSpellBuyBySkill = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellBuyBySkill");
+            result.SpellProgressionSettings.LimitSpellMakerToKnownEffects = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellMakerToKnownEffects");
             result.SpellProgressionSettings.SpellCostCheckMultiplier = settings.GetValue<float>("SpellProgressionModule", "SpellCostCheckMultiplier");
             return result;
         }
@@ -81,7 +83,13 @@ namespace MightyMagick
             effectRegister = new EffectRegister();
             effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);
-            EntityEffectManagerPatcher.TryApplyPatch();
+
+            if (MightyMagickModSettings.SpellProgressionSettings.LimitSpellMakerToKnownEffects)
+            {
+                DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellMaker, typeof(MightyMagickSpellMakerWindow));
+            }
+
+            HarmonyPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
         }
     }

@@ -2,6 +2,35 @@
     "Version": null,
     "Sections": [
         {
+            "Name": "SpellSelectionModule",
+            "Description": "This module limits the kind of spells the player character can buy, make or cast",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "LimitSpellbuying",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "LimitSpellmaking",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "LimitSpellVendorList",
+                    "Description": null,
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
             "Name": "SavingThrowModule",
             "Description": "This module deals with resistances, eg. resistance partially reduces damage, not fully negate it",
             "IsAdvanced": false,
@@ -210,13 +239,27 @@
         },
         {
             "Name": "SpellProgressionModule",
-            "Description": "Requires Harmony! Spells have skill requirements",
+            "Description": "Requires Harmony! Limit spell creation and learning in various ways",
             "IsAdvanced": true,
             "Keys": [
                 {
                     "Value": true,
-                    "Name": "Enabled",
-                    "Description": null,
+                    "Name": "LimitSpellCastBySkill",
+                    "Description": "Can only cast spells if the related skill is higher than the cost. Modified by the SpellCostCheckMultiplier",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "LimitSpellBuyBySkill",
+                    "Description": "Can only buy spells if the related skill is higher than the cost. Modified by the SpellCostCheckMultiplier",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "LimitSpellMakerToKnownEffects",
+                    "Description": "Can only use spell effects for making new spells that are already known by the player",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 },
