@@ -42,6 +42,7 @@ namespace MightyMagick.SpellProgressionModule
 
         private string[] GetKnownGroupNames()
         {
+            //Todo: lets refactor and always refesh, in case youve learned a new spell
             if (groupedKnownEffectTemplates == null) groupedKnownEffectTemplates = GenerateKnownDictionary();
 
             var groupNames =  groupedKnownEffectTemplates.Keys.ToList();

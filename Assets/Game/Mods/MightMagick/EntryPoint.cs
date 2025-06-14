@@ -82,7 +82,7 @@ namespace MightyMagick
             effectRegister.RegisterNewMagicEffects();
             FormulaOverrides.RegisterFormulaOverrides(mod);
             DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellMaker, typeof(MightyMagickSpellMakerWindow));
-            EntityEffectManagerPatcher.TryApplyPatch();
+            HarmonyPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
         }
     }
