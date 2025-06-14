@@ -25,7 +25,7 @@ namespace  MightyMagick.SpellProgressionModule
             var spellProgSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellProgressionSettings;
             var absorbSettings = MightyMagickMod.Instance.MightyMagickModSettings.AbsorbSettings;
 
-            if (!spellProgSettings.Enabled && !absorbSettings.Enabled)
+            if (!spellProgSettings.LimitSpellCastBySkill && !absorbSettings.Enabled && !spellProgSettings.LimitSpellBuyBySkill)
             {
                 Debug.Log("MightyMagick - TryApplyPatch - Harmony is not needed");
                 return true;
@@ -44,11 +44,8 @@ namespace  MightyMagick.SpellProgressionModule
                 Setup(harmonyPath);
 
                 if (absorbSettings.Enabled) PatchTryAbsorb();
-                if (spellProgSettings.Enabled)
-                {
-                    PatchSetReadySpell();
-                    PatchSpellBuy();
-                }
+                if (spellProgSettings.LimitSpellCastBySkill) PatchSetReadySpell();
+                if (spellProgSettings.LimitSpellBuyBySkill) PatchSpellBuy();
 
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;

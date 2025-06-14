@@ -20,7 +20,8 @@ namespace Game.Mods.MightMagick.SpellProgressionModule
 
             foreach (var effect in bundleSettings.Effects)
             {
-                var (_, spellPointCost) = FormulaHelper.CalculateEffectCosts(effect, casterEntity);
+                var spellCostRecord = FormulaHelper.CalculateEffectCosts(effect, casterEntity);
+                var spellPointCost = spellCostRecord.spellPointCost;
                 var effectTemplate = GameManager.Instance.EntityEffectBroker.GetEffectTemplate(effect.Key);
                 var skillValue = GameManager.Instance.PlayerEntity.Skills.GetLiveSkillValue((DFCareer.Skills)effectTemplate.Properties.MagicSkill);
                 if (skillValue >= 100) continue;
