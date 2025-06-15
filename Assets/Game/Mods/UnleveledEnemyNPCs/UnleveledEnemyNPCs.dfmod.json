@@ -1,0 +1,16 @@
+{
+    "ModTitle": "Unleveled Enemy NPCs",
+    "ModVersion": "0.1.0",
+    "ModAuthor": "kiskoller",
+    "ContactInfo": "kiskoller@gmail.com",
+    "DFUnity_Version": "1.2.0-Test1",
+    "ModDescription": "Unlevels enemy NPC combatants so that they aren't affected by player level.",
+    "GUID": "8c883dd2-e440-440e-be28-691a6c6c52c2",
+    "Files": [
+        "Assets/Game/Mods/UnleveledEnemyNPCs/EnemyEntityPatches.cs",
+        "Assets/Game/Mods/UnleveledEnemyNPCs/modsettings.json",
+        "Assets/Game/Mods/UnleveledEnemyNPCs/EntryPoint.cs",
+        "Assets/Game/Mods/UnleveledEnemyNPCs/BellCurveRandom.cs",
+        "Assets/Game/Mods/UnleveledEnemyNPCs/UnleveledEnemyNPCs.dfmod.json"
+    ]
+}
