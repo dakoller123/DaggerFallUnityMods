@@ -1,0 +1,40 @@
+{
+    "Version": null,
+    "Sections": [
+        {
+            "Name": "MainSection",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Min": 1,
+                    "Max": 50,
+                    "Value": 1,
+                    "Name": "MinimumLevel",
+                    "Description": "Minimum Level that an NPC can spawn with.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 1,
+                    "Max": 50,
+                    "Value": 20,
+                    "Name": "MaximumLevel",
+                    "Description": "Maximum Level that an NPC can spawn with.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 1,
+                    "Max": 50,
+                    "Value": 6,
+                    "Name": "CommonLevel",
+                    "Description": "Most common level NPC can spawn with.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                }
+            ],
+            "$version": "v1"
+        }
+    ]
+}
