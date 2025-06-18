@@ -14,7 +14,7 @@ namespace Game.Mods.UnleveledEnemyNPCs
         public static UnleveledEnemyNPCsMod Instance;
         public int MinLevel { get; set; }
         public int MaxLevel { get; set; }
-        public int CommonLevel { get; set; }
+        public int Offset { get; set; }
 
         [Invoke(StateManager.StateTypes.Start, 0)]
         public static void Init(InitParams initParams)
@@ -38,8 +38,8 @@ namespace Game.Mods.UnleveledEnemyNPCs
             ModSettings settings = mod.GetSettings();
             MinLevel = settings.GetValue<int>("MainSection", "MinimumLevel");
             MaxLevel = settings.GetValue<int>("MainSection", "MaximumLevel");
-            CommonLevel = settings.GetValue<int>("MainSection", "CommonLevel");
-            Debug.Log($"{nameof(UnleveledEnemyNPCsMod)} - {nameof(ParseSettings)} - {nameof(MinLevel)} {MinLevel} - {nameof(MaxLevel)} {MaxLevel} - {nameof(CommonLevel)} {CommonLevel}");
+            Offset = settings.GetValue<int>("MainSection", "Offset");
+            Debug.Log($"{nameof(UnleveledEnemyNPCsMod)} - {nameof(ParseSettings)} - {nameof(MinLevel)} {MinLevel} - {nameof(MaxLevel)} {MaxLevel} - {nameof(Offset)} {Offset}");
         }
 
         public void InitMod()
