@@ -115,13 +115,24 @@
                 {
                     "Options": [
                         "Percentage",
-                        "Flat"
+                        "Flat",
+                        "",
+                        ""
                     ],
                     "Value": 0,
                     "Name": "MagnitudeCalculation",
                     "Description": "To restore an X percent of the magicka bar, or X amount of points.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.MultipleChoiceKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 5,
+                    "Value": 1,
+                    "Name": "PotionsAtStart",
+                    "Description": "How many potions are granted for spellcasters at start",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 }
             ],
             "$version": "v1"

@@ -1,5 +1,10 @@
+using System;
+using System.Linq;
 using UnityEngine;
 using DaggerfallWorkshop.Game;
+using DaggerfallWorkshop.Game.Items;
+using DaggerfallWorkshop.Game.MagicAndEffects;
+using DaggerfallWorkshop.Game.Utility;
 using DaggerfallWorkshop.Game.Utility.ModSupport;
 using MightyMagick.MagicEffects;
 using MightyMagick.Formulas;
@@ -55,6 +60,7 @@ namespace MightyMagick
                 : PotionMagnitudeCalculationTypes.Percentage;
 
             result.PotionSettings.PotionMagnitude = settings.GetValue<int>("PotionModule", "PotionMagnitude");
+            result.PotionSettings.PotionsAtStart =  settings.GetValue<int>("PotionModule", "PotionsAtStart");
 
             result.MagickaPoolSettings.Enabled = settings.GetValue<bool>("MagickaPoolModule", "Enabled");
             result.MagickaPoolSettings.LevelUpFlatIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpFlatIncrease");
@@ -92,8 +98,21 @@ namespace MightyMagick
                 DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellMaker, typeof(MightyMagickSpellMakerWindow));
             }
 
+            if (MightyMagickModSettings.PotionSettings.PotionsAtStart > 0)
+            {
+                StateManager.OnStartNewGame += OnNewGameStarted;
+            }
+
             HarmonyPatcher.TryApplyPatch();
             Debug.Log("Finished mod init: MightyMagickMod");
+        }
+
+        static void OnNewGameStarted(object sender, EventArgs e)
+        {
+            var player = GameManager.Instance.PlayerEntity;
+
+            var potion = ItemBuilder.CreatePotion(5188896, MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings.PotionsAtStart);
+            player.Items.AddItem(potion);
         }
     }
 }

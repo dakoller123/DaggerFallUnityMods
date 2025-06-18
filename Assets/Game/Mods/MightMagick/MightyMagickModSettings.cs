@@ -69,6 +69,7 @@ namespace MightyMagick
         public bool Enabled { get; set; }
         public int PotionMagnitude {get;set;}
         public PotionMagnitudeCalculationTypes  MagnitudeCalculation { get; set; }
+        public int PotionsAtStart { get; set; }
     }
 
     public class RegenSettings
