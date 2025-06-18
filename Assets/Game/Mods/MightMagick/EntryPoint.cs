@@ -78,6 +78,8 @@ namespace MightyMagick
             result.AbsorbSettings.AllowOwnSpellAbsorbs = settings.GetValue<bool>("SpellAbsorbModule", "AllowOwnSpellAbsorbs");
             result.AbsorbSettings.CalculateSpellCostWithCaster = settings.GetValue<bool>("SpellAbsorbModule", "CalculateSpellCostWithCaster");
             result.AbsorbSettings.CalculateWithResistances = settings.GetValue<bool>("SpellAbsorbModule", "CalculateWithResistances");
+            result.AbsorbSettings.SpellCostRegenMultiplier = settings.GetValue<float>("SpellAbsorbModule", "SpellCostRegenMultiplier");
+            result.AbsorbSettings.CareerAbsorbChance = settings.GetValue<int>("SpellAbsorbModule", "CareerAbsorbChance");
 
             result.SpellProgressionSettings.LimitSpellCastBySkill = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellCastBySkill");
             result.SpellProgressionSettings.LimitSpellBuyBySkill = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellBuyBySkill");

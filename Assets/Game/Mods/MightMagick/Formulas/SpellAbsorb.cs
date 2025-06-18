@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using DaggerfallWorkshop;
 using DaggerfallWorkshop.Game;
@@ -13,7 +14,7 @@ namespace MightyMagick.Formulas
     {
         public static int TryAbsorption(IEntityEffect effect, TargetTypes targetType, DaggerfallEntity casterEntity, DaggerfallEntity targetEntity, SpellAbsorption absorbEffectOnTarget)
         {
-            
+
             var absorbSettings = MightyMagickMod.Instance.MightyMagickModSettings.AbsorbSettings;
             var absorbSpellPointsOut = 0;
 
@@ -25,7 +26,7 @@ namespace MightyMagick.Formulas
                 return 0;
 
             if (!absorbSettings.AllowOwnSpellAbsorbs && casterEntity == targetEntity)
-                return 0;    
+                return 0;
 
             // Get casting cost for this effect
             // Costs are calculated as if target cast the spell, not the actual caster
@@ -34,7 +35,7 @@ namespace MightyMagick.Formulas
                 ? casterEntity
                 : targetEntity;
 
-            int effectCastingCost = GetEffectCastingCost(effect, targetType, entityForCastCost);
+            var effectCastingCost = Mathf.RoundToInt(GetEffectCastingCost(effect, targetType, entityForCastCost) * absorbSettings.SpellCostRegenMultiplier);
 
 
             // The target entity must have enough spell points free to absorb incoming effect
@@ -52,7 +53,7 @@ namespace MightyMagick.Formulas
 
                 chance = ApplyResistanceToAbsorbChance(chance, resistances);
             }
-           
+
             if (chance >= 100 ||  DaggerfallWorkshop.Game.Utility.Dice100.SuccessRoll(chance))
             {
                 return absorbSpellPointsOut;
@@ -84,13 +85,13 @@ namespace MightyMagick.Formulas
         static int GetAbsorbChance(IEntityEffect effect, DaggerfallEntity targetEntity, SpellAbsorption absorbEffectOnTarget)
         {
             int effectBasedChance = GetEffectBasedAbsorptionChance(effect, absorbEffectOnTarget, targetEntity);
-            return (CheckCareerBasedAbsorption(effect, targetEntity) || targetEntity.IsAbsorbingSpells) 
-                ? 100 + effectBasedChance
+            return (CheckCareerBasedAbsorption(effect, targetEntity) || targetEntity.IsAbsorbingSpells)
+                ? MightyMagickMod.Instance.MightyMagickModSettings.AbsorbSettings.CareerAbsorbChance + effectBasedChance
                 : effectBasedChance;
         }
 
         static int GetEffectCastingCost(IEntityEffect effect, TargetTypes targetType, DaggerfallEntity casterEntity)
-        {            
+        {
             FormulaHelper.SpellCost spellCost = FormulaHelper.CalculateEffectCosts(effect, effect.Settings, casterEntity);
             var spellPointCost = FormulaHelper.ApplyTargetCostMultiplier(spellCost.spellPointCost, targetType);
 

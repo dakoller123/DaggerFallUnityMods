@@ -242,6 +242,24 @@
                     "Description": "Enable to affect the absorb chance via immmunities and tolerances.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0,
+                    "Max": 100,
+                    "Value": 100,
+                    "Name": "CareerAbsorbChance",
+                    "Description": "Chance of spell absorb from Special Advantage. Vanilla is 100%.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0.1,
+                    "Max": 10.0,
+                    "Value": 1.0,
+                    "Name": "SpellCostRegenMultiplier",
+                    "Description": "Multiplies the spell cost when calculating how much is regenerated when absorbing.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
                 }
             ],
             "$version": "v1"

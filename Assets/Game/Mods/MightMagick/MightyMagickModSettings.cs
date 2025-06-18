@@ -28,6 +28,8 @@ namespace MightyMagick
         public bool AllowOwnSpellAbsorbs { get; set; }
         public bool CalculateSpellCostWithCaster { get; set; }
         public bool CalculateWithResistances {get;set; }
+        public int CareerAbsorbChance { get; set; }
+        public float SpellCostRegenMultiplier { get; set; }
     }
 
     public class MagickaEnchantSettings
