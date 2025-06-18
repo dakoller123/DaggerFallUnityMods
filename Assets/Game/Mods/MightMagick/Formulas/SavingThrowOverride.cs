@@ -25,8 +25,8 @@ namespace MightyMagick.Formulas
 
             var resistancePercent = 100 - resistance;
             var willpowerPercent = CalculateWithWillPower(sourceEffect, target);
-
-            return resistancePercent * willpowerPercent / 100;
+            var multiplier = MightyMagickMod.Instance.MightyMagickModSettings.SavingThrowSettings.Multiplier;
+            return  Mathf.RoundToInt(resistancePercent * willpowerPercent * multiplier / 100);
         }
 
         private static int CalculateWithWillPower(IEntityEffect sourceEffect, DaggerfallEntity target)

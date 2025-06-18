@@ -8,6 +8,7 @@ using DaggerfallWorkshop.Game.Entity;
 using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallConnect;
+using UnityEngine;
 
 namespace MightyMagick.Formulas
 {
@@ -117,8 +118,9 @@ namespace MightyMagick.Formulas
                 effectCost.spellPointCost = trunc(spellPointCost);
             }
 
+            var modsettingsMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings.Multiplier;
+            effectCost.spellPointCost = Mathf.RoundToInt(effectCost.spellPointCost * modsettingsMultiplier);
 
-            //Debug.LogFormat("Costs: gold {0} spellpoints {1}", finalGoldCost, finalSpellPointCost);
             return effectCost;
         }
 

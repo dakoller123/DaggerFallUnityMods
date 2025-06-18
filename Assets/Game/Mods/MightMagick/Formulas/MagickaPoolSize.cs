@@ -23,15 +23,15 @@ namespace MightyMagick.Formulas
 
         public static int SpellPoints(int intelligence, float multiplier)
         {
-            var settings = MightyMagickMod.Instance.MightyMagickModSettings.MagickaPoolSettings;            
+            var settings = MightyMagickMod.Instance.MightyMagickModSettings.MagickaPoolSettings;
             var level = GameManager.Instance.PlayerEntity.Level;
             var flat = settings.LevelUpFlatIncrease;
             var percent = 1.0f + (((float)settings.LevelUpPercentageIncrease) / 100);
-            
+
             var baseValue = CalculateRaw(intelligence, multiplier) + CalculateFlat(flat, level);
             var result = baseValue * CalculatePercentage(percent, level);
-
-            return (int)Mathf.Floor(result);
+            var modsettingsMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.MagickaPoolSettings.Multiplier;
+            return  Mathf.RoundToInt(result * modsettingsMultiplier);
         }
 
     }

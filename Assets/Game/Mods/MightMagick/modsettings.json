@@ -2,37 +2,8 @@
     "Version": null,
     "Sections": [
         {
-            "Name": "SpellSelectionModule",
-            "Description": "This module limits the kind of spells the player character can buy, make or cast",
-            "IsAdvanced": false,
-            "Keys": [
-                {
-                    "Value": true,
-                    "Name": "LimitSpellbuying",
-                    "Description": null,
-                    "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                },
-                {
-                    "Value": true,
-                    "Name": "LimitSpellmaking",
-                    "Description": null,
-                    "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                },
-                {
-                    "Value": true,
-                    "Name": "LimitSpellVendorList",
-                    "Description": null,
-                    "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                }
-            ],
-            "$version": "v1"
-        },
-        {
             "Name": "SavingThrowModule",
-            "Description": "This module deals with resistances, eg. resistance partially reduces damage, not fully negate it",
+            "Description": "This mode replaces the saving throw spell resist check. Spells always land but do more or less dmg based on resistances and willpower.",
             "IsAdvanced": false,
             "Keys": [
                 {
@@ -41,6 +12,15 @@
                     "Description": null,
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0.1,
+                    "Max": 10.0,
+                    "Value": 1.0,
+                    "Name": "Multiplier",
+                    "Description": "Multiplies the spell's magnitude at the end of the calculation. 0.5 will make damaging spells do half damage for example.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
                 }
             ],
             "$version": "v1"
@@ -98,6 +78,15 @@
                     "Description": "Each levelup magicka is increased by a flat X value.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 0.1,
+                    "Max": 10.0,
+                    "Value": 1.0,
+                    "Name": "Multiplier",
+                    "Description": "Multiplies the spell pool size at the end of the calculation. 2.0 will double your magicka pool for example.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
                 }
             ],
             "$version": "v1"
@@ -148,6 +137,15 @@
                     "Description": null,
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 0.1,
+                    "Max": 2.0,
+                    "Value": 1.0,
+                    "Name": "Multiplier",
+                    "Description": "Multiplies the spell cost at the end of the calculation. 0.5 makes the spells cost half as much for example",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
                 }
             ],
             "$version": "v1"
@@ -197,7 +195,7 @@
         {
             "Name": "SpellAbsorbModule",
             "Description": "Requires Harmony! Balances Spell Absorbtion.",
-            "IsAdvanced": true,
+            "IsAdvanced": false,
             "Keys": [
                 {
                     "Value": true,
@@ -240,7 +238,7 @@
         {
             "Name": "SpellProgressionModule",
             "Description": "Requires Harmony! Limit spell creation and learning in various ways",
-            "IsAdvanced": true,
+            "IsAdvanced": false,
             "Keys": [
                 {
                     "Value": true,
