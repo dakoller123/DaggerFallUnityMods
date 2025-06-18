@@ -41,9 +41,7 @@ namespace Game.Mods.UnleveledEnemyNPCs
             ref ItemCollection ___items,
             MobileEnemy mobileEnemy, EntityTypes entityType)
         {
-            Debug.Log($"{nameof(Prefix_SetEnemyCareer)} - method called");
-
-            int desiredLevel = BellCurveRandom.GetBellCurveRandom(UnleveledEnemyNPCsMod.Instance.MinLevel, UnleveledEnemyNPCsMod.Instance.MaxLevel, UnleveledEnemyNPCsMod.Instance.CommonLevel);
+            int desiredLevel = BellCurveRandom.GetBellCurveRandom(UnleveledEnemyNPCsMod.Instance.MinLevel, UnleveledEnemyNPCsMod.Instance.MaxLevel, UnleveledEnemyNPCsMod.Instance.Offset);
 
             // Try custom career first
             ___career = EnemyEntity.GetCustomCareerTemplate(mobileEnemy.ID);
@@ -68,7 +66,6 @@ namespace Game.Mods.UnleveledEnemyNPCs
                 {
                     // Default like a class enemy
                     ___level = desiredLevel;
-                    Debug.Log($"{nameof(UnleveledEnemyNPCsMod)} - enemy with level {desiredLevel} spawned");
                     ___maxHealth = FormulaHelper.RollEnemyClassMaxHealth(___level, ___career.HitPointsPerLevel);
                 }
             }
@@ -100,7 +97,6 @@ namespace Game.Mods.UnleveledEnemyNPCs
                 if (___careerIndex == (int)MobileTypes.Knight_CityWatch - 128)
                 {
                     ___level += UnityEngine.Random.Range(3, 7);
-                    Debug.Log($"{nameof(UnleveledEnemyNPCsMod)} - enemy guard with level {desiredLevel} spawned");
                 }
 
                 ___maxHealth = FormulaHelper.RollEnemyClassMaxHealth(___level, ___career.HitPointsPerLevel);

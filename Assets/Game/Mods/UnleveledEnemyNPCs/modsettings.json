@@ -25,11 +25,11 @@
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 },
                 {
-                    "Min": 1,
-                    "Max": 50,
-                    "Value": 6,
-                    "Name": "CommonLevel",
-                    "Description": "Most common level NPC can spawn with.",
+                    "Min": -25,
+                    "Max": 25,
+                    "Value": -4,
+                    "Name": "Offset",
+                    "Description": "Offset the result of a normal distribution calculation between min and max.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
                 }
