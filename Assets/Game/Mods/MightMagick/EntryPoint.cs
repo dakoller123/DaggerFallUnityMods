@@ -45,6 +45,7 @@ namespace MightyMagick
             result.RegenSettings.RegenRateDungeon  = settings.GetValue<int>("MagickaRegenModule", "RegenRateDungeon");
 
             result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
+            result.SpellCostSettings.Multiplier  = settings.GetValue<float>("SpellCostModule", "Multiplier");
 
             result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
 
@@ -58,11 +59,13 @@ namespace MightyMagick
             result.MagickaPoolSettings.Enabled = settings.GetValue<bool>("MagickaPoolModule", "Enabled");
             result.MagickaPoolSettings.LevelUpFlatIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpFlatIncrease");
             result.MagickaPoolSettings.LevelUpPercentageIncrease = settings.GetValue<int>("MagickaPoolModule", "LevelUpPercentageIncrease");
+            result.MagickaPoolSettings.Multiplier  = settings.GetValue<float>("MagickaPoolModule", "Multiplier");
 
             result.MagickaEnchantSettings.Enabled = settings.GetValue<bool>("MagickaEnchantModule", "Enabled");
             result.MagickaEnchantSettings.EnchantMagnitude = settings.GetValue<int>("MagickaEnchantModule", "EnchantMagnitude");
 
             result.SavingThrowSettings.Enabled = settings.GetValue<bool>("SavingThrowModule", "Enabled");
+            result.SavingThrowSettings.Multiplier  = settings.GetValue<float>("SavingThrowModule", "Multiplier");
 
             result.AbsorbSettings.Enabled = settings.GetValue<bool>("SpellAbsorbModule", "Enabled");
             result.AbsorbSettings.AllowNonDestructionAbsorbs = settings.GetValue<bool>("SpellAbsorbModule", "AllowNonDestructionAbsorbs");

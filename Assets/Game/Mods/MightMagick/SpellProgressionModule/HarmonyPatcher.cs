@@ -1,25 +1,18 @@
 using System;
-using System.IO;
 using System.Reflection;
 using DaggerfallWorkshop.Game.Entity;
 using DaggerfallWorkshop.Game.MagicAndEffects;
-using DaggerfallWorkshop.Game.UserInterface;
 using DaggerfallWorkshop.Game.UserInterfaceWindows;
 using Game.Mods.MightMagick.SpellProgressionModule;
+using HarmonyLib;
 using UnityEngine;
 
 namespace  MightyMagick.SpellProgressionModule
 {
+
     public static class HarmonyPatcher
     {
-        private const string HarmonyAssemblyPath = "Mods/0Harmony.dll";
-        private const string HarmonyPatchId = "mightymagickmod.entityeffectmanager.patch";
-
-        private static object harmonyInstance;
-        private static MethodInfo patchMethod;
-        private static ConstructorInfo harmonyMethodCtor;
-        private static Type harmonyMethodType;
-
+        public static Harmony harmony;
         public static bool TryApplyPatch()
         {
             var spellProgSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellProgressionSettings;
@@ -30,19 +23,10 @@ namespace  MightyMagick.SpellProgressionModule
                 Debug.Log("MightyMagick - TryApplyPatch - Harmony is not needed");
                 return true;
             }
-
-            string harmonyPath = Path.Combine(Application.streamingAssetsPath, HarmonyAssemblyPath);
-
-            if (!File.Exists(harmonyPath))
-            {
-                Debug.LogError($"Harmony: {harmonyPath} not found");
-                return false;
-            }
+            harmony = new Harmony("MightyMagickMod");
 
             try
             {
-                Setup(harmonyPath);
-
                 if (absorbSettings.Enabled) PatchTryAbsorb();
                 if (spellProgSettings.LimitSpellCastBySkill) PatchSetReadySpell();
                 if (spellProgSettings.LimitSpellBuyBySkill) PatchSpellBuy();
@@ -55,24 +39,6 @@ namespace  MightyMagick.SpellProgressionModule
                 Debug.LogError($"Harmony: Error while patching => {e}");
                 return false;
             }
-        }
-
-        private static void Setup(string harmonyPath)
-        {
-            Assembly harmonyAssembly = GetHarmonyAssembly(harmonyPath);
-            Type harmonyType = harmonyAssembly.GetType("HarmonyLib.Harmony");
-            harmonyMethodType = harmonyAssembly.GetType("HarmonyLib.HarmonyMethod");
-
-            harmonyInstance = Activator.CreateInstance(harmonyType, new object[] { HarmonyPatchId });
-
-            patchMethod = harmonyType.GetMethod("Patch");
-            harmonyMethodCtor = harmonyMethodType.GetConstructor(new Type[] { typeof(MethodInfo) });
-        }
-
-        private static Assembly GetHarmonyAssembly(string harmonyPath)
-        {
-            byte[] dllData = File.ReadAllBytes(harmonyPath);
-            return Assembly.Load(dllData);
         }
 
         private static void PatchSetReadySpell()
@@ -89,14 +55,9 @@ namespace  MightyMagick.SpellProgressionModule
                     BindingFlags.Public | BindingFlags.Static
                     );
 
-            object harmonyPrefix = harmonyMethodCtor.Invoke(new object[] { prefixMethod });
-
-            patchMethod.Invoke(harmonyInstance, new object[]
-            {
-                targetMethod,
-                harmonyPrefix,
-                null, null, null
-            });
+            harmony.Patch(
+                original: targetMethod,
+                prefix: new HarmonyMethod(prefixMethod));
 
             Debug.Log("Harmony: SetReadySpell() patched successfully.");
         }
@@ -115,14 +76,9 @@ namespace  MightyMagick.SpellProgressionModule
                     BindingFlags.Public | BindingFlags.Static
                 );
 
-            object harmonyPrefix = harmonyMethodCtor.Invoke(new object[] { prefixMethod });
-
-            patchMethod.Invoke(harmonyInstance, new object[]
-            {
-                targetMethod,
-                harmonyPrefix,
-                null, null, null
-            });
+            harmony.Patch(
+                original: targetMethod,
+                prefix: new HarmonyMethod(prefixMethod));
 
             Debug.Log("Harmony: TryAbsorption() patched successfully.");
         }
@@ -150,14 +106,9 @@ namespace  MightyMagick.SpellProgressionModule
                 Debug.LogError("Harmony: Failed to find BuyButton_OnMouseClick");
             }
 
-            object harmonyPrefix = harmonyMethodCtor.Invoke(new object[] { prefixMethod });
-
-            patchMethod.Invoke(harmonyInstance, new object[]
-            {
-                targetMethod,
-                harmonyPrefix,
-                null, null, null
-            });
+            harmony.Patch(
+                original: targetMethod,
+                prefix: new HarmonyMethod(prefixMethod));
 
             Debug.Log("Harmony: BuyButton_OnMouseClick() patched successfully.");
         }

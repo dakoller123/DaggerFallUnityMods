@@ -39,12 +39,14 @@ namespace MightyMagick
     public class SpellCostSettings
     {
         public bool Enabled { get; set; }
+        public float Multiplier { get; set; }
 
     }
 
     public class SavingThrowSettings
     {
         public bool Enabled { get; set; }
+        public float Multiplier { get; set; }
     }
 
     public class MagickaPoolSettings
@@ -52,6 +54,7 @@ namespace MightyMagick
         public bool Enabled { get; set; }
         public int LevelUpPercentageIncrease { get; set; }
         public int LevelUpFlatIncrease { get; set; }
+        public float Multiplier { get; set; }
     }
 
     public enum PotionMagnitudeCalculationTypes
