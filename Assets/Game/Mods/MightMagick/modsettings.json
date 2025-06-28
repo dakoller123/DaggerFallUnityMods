@@ -301,6 +301,63 @@
                 }
             ],
             "$version": "v1"
+        },
+        {
+            "Name": "MagicEffectOverridesModule",
+            "Description": "Various Magic Effects that can be overriden with slightly changed behaviour",
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "HideMagicCandle",
+                    "Description": "Hide the dancing candle from the light spell",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "LevitateHasMagnitude",
+                    "Description": "Levitate has magnitude that increases the flying speed",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "CheaperShield",
+                    "Description": "Halves the Shield spell's magnitude cost to make it usable at low levels.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "AddMageArmor",
+                    "Description": "Adds a new spell called Mage Armor that acts similar to later game's Shield spells.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "JumpingHasMagnitude",
+                    "Description": "The Jumping Alteration Spell has magnitude, giving bigger leaps.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "AddMoreVendorSpells",
+                    "Description": "Levitate has magnitude that increases the flying speed",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "AddDetectQuest",
+                    "Description": "Adds a new Detect Quest spell, ported from the Clairvoyance mod",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
         }
     ]
 }

@@ -10,7 +10,20 @@ namespace MightyMagick
         public MagickaEnchantSettings MagickaEnchantSettings {get;set;} = new MagickaEnchantSettings();
         public AbsorbSettings AbsorbSettings {get;set;} = new AbsorbSettings();
 
+        public MagicEffectSettings MagicEffectSettings { get; set; } = new MagicEffectSettings();
         public SpellProgressionSettings SpellProgressionSettings { get; set; } = new SpellProgressionSettings();
+    }
+
+    public class MagicEffectSettings
+    {
+        public bool HideMagicCandle { get; set; }
+        public bool LevitateHasMagnitude { get; set; }
+
+        public bool AddMoreVendorSpells { get; set; }
+        public bool CheaperShield { get; set; }
+        public bool AddMageArmor { get; set; }
+        public bool JumpingHasMagnitude { get; set; }
+        public bool AddDetectQuest { get; set; }
     }
 
     public class SpellProgressionSettings

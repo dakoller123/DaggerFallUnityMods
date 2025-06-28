@@ -1,6 +1,6 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.12.0",
+    "ModVersion": "0.12.8",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller@gmail.com",
     "DFUnity_Version": "1.1.1",
@@ -25,6 +25,15 @@
         "Assets/Game/Mods/MightMagick/SpellProgressionModule/SpellCostSkillChecker.cs",
         "Assets/Game/Mods/MightMagick/SpellProgressionModule/EntityEffectManagerPatches.cs",
         "Assets/Game/Mods/MightMagick/SpellProgressionModule/HarmonyPatcher.cs",
-        "Assets/Game/Mods/MightMagick/SpellProgressionModule/SpellBookPatches.cs"
+        "Assets/Game/Mods/MightMagick/SpellProgressionModule/SpellBookPatches.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/MageLight.cs",
+        "Assets/Game/Mods/MightMagick/SpellProgressionModule/UIPatches.cs",
+        "Assets/Game/Mods/MightMagick/NewVendorSpells.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/MightyJumping.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/Shield.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/MageArmor.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/LightNormal.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/MightyLevitate.cs",
+        "Assets/Game/Mods/MightMagick/MagicEffects/DetectQuestTarget.cs"
     ]
 }

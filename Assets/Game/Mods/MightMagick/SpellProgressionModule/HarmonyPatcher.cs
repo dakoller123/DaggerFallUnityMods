@@ -31,6 +31,8 @@ namespace  MightyMagick.SpellProgressionModule
                 if (spellProgSettings.LimitSpellCastBySkill) PatchSetReadySpell();
                 if (spellProgSettings.LimitSpellBuyBySkill) PatchSpellBuy();
 
+                PatchUIMessage();
+
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;
             }
@@ -39,6 +41,26 @@ namespace  MightyMagick.SpellProgressionModule
                 Debug.LogError($"Harmony: Error while patching => {e}");
                 return false;
             }
+        }
+        private static void PatchUIMessage()
+        {
+            MethodInfo targetMethod = typeof(DaggerfallWorkshop.Game.DaggerfallUI)
+                .GetMethod("AddHUDText", BindingFlags.Public | BindingFlags.Static,
+                    null,
+                    new Type[] { typeof(string), typeof(float)},
+                    null);
+
+            MethodInfo prefixMethod = typeof(UIPatches)
+                .GetMethod(
+                    "Prefix_AddHUDText",
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            harmony.Patch(
+                original: targetMethod,
+                prefix: new HarmonyMethod(prefixMethod));
+
+            Debug.Log("Harmony: AddHUDText() patched successfully.");
         }
 
         private static void PatchSetReadySpell()

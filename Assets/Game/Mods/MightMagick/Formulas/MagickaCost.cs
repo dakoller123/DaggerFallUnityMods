@@ -26,7 +26,8 @@ namespace MightyMagick.Formulas
             int skillValue)
         {
             //Calculate effect gold cost, spellpoint cost is calculated from gold cost after adding up for duration, chance and magnitude
-            return trunc(costs.OffsetGold + costs.CostA * starting + costs.CostB * trunc(increase / perLevel));
+            var increaseRatio = perLevel == 0 ? 1 : trunc(increase / perLevel);
+            return trunc(costs.OffsetGold + costs.CostA * starting + costs.CostB * increaseRatio);
         }
 
 

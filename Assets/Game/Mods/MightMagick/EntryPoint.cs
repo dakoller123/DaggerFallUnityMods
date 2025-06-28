@@ -85,6 +85,15 @@ namespace MightyMagick
             result.SpellProgressionSettings.LimitSpellBuyBySkill = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellBuyBySkill");
             result.SpellProgressionSettings.LimitSpellMakerToKnownEffects = settings.GetValue<bool>("SpellProgressionModule", "LimitSpellMakerToKnownEffects");
             result.SpellProgressionSettings.SpellCostCheckMultiplier = settings.GetValue<float>("SpellProgressionModule", "SpellCostCheckMultiplier");
+
+            result.MagicEffectSettings.LevitateHasMagnitude = settings.GetValue<bool>("MagicEffectOverridesModule", "LevitateHasMagnitude");
+            result.MagicEffectSettings.HideMagicCandle = settings.GetValue<bool>("MagicEffectOverridesModule", "HideMagicCandle");
+            result.MagicEffectSettings.AddMoreVendorSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddMoreVendorSpells");
+            result.MagicEffectSettings.CheaperShield =  settings.GetValue<bool>("MagicEffectOverridesModule", "CheaperShield");
+            result.MagicEffectSettings.AddMageArmor =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddMageArmor");
+            result.MagicEffectSettings.JumpingHasMagnitude =  settings.GetValue<bool>("MagicEffectOverridesModule", "JumpingHasMagnitude");
+            result.MagicEffectSettings.AddDetectQuest =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddDetectQuest");
+
             return result;
         }
 
@@ -102,10 +111,18 @@ namespace MightyMagick
 
             if (MightyMagickModSettings.PotionSettings.PotionsAtStart > 0)
             {
-                StateManager.OnStartNewGame += OnNewGameStarted;
+
+                StartGameBehaviour.OnStartGame += OnNewGameStarted;
+
             }
 
             HarmonyPatcher.TryApplyPatch();
+
+            if (MightyMagickModSettings.MagicEffectSettings.AddMoreVendorSpells)
+            {
+                NewVendorSpells.RegisterSpells();
+            }
+
             Debug.Log("Finished mod init: MightyMagickMod");
         }
 
