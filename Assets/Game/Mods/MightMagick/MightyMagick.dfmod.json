@@ -1,6 +1,6 @@
 {
     "ModTitle": "MightyMagick",
-    "ModVersion": "0.12.2",
+    "ModVersion": "0.12.3",
     "ModAuthor": "kiskoller",
     "ContactInfo": "kiskoller @ Lyandus' Tomb discord server",
     "DFUnity_Version": "1.1.1",
@@ -34,6 +34,7 @@
         "Assets/Game/Mods/MightMagick/MagicEffects/MageArmor.cs",
         "Assets/Game/Mods/MightMagick/MagicEffects/LightNormal.cs",
         "Assets/Game/Mods/MightMagick/MagicEffects/MightyLevitate.cs",
-        "Assets/Game/Mods/MightMagick/MagicEffects/DetectQuestTarget.cs"
+        "Assets/Game/Mods/MightMagick/MagicEffects/DetectQuestTarget.cs",
+        "Assets/Game/Mods/MightMagick/AnducarsGrimoire.cs"
     ]
 }

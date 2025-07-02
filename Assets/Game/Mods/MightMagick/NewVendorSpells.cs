@@ -3,6 +3,7 @@ using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using MightyMagick.MagicEffects;
+using LightNormal = DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects.LightNormal;
 using MageArmor = MightyMagick.MagicEffects.MageArmor;
 using Shield = DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects.Shield;
 
@@ -432,5 +433,202 @@ namespace MightyMagick
 
             return minorShieldSpell;
         }
+
+        public static EffectBundleSettings FieryTouch()
+        {
+            var templateEffect = new DamageHealth();
+
+            EffectSettings effectSettings = new EffectSettings()
+            {
+                MagnitudeBaseMin = 1,
+                MagnitudeBaseMax = 2,
+                MagnitudePerLevel = 1,
+                MagnitudePlusMax = 2,
+                MagnitudePlusMin = 3,
+            };
+
+            EffectEntry effectEntry = new EffectEntry()
+            {
+                Key = templateEffect.Properties.Key,
+                Settings = effectSettings,
+            };
+
+            EffectBundleSettings spell = new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.ByTouch,
+                ElementType = ElementTypes.Fire,
+                Name = "Fire Touch I",
+                IconIndex = 12,
+                Effects = new[] { effectEntry },
+            };
+
+            return spell;
+        }
+
+        public static EffectBundleSettings FireBoltUnleveled()
+        {
+            var templateEffect = new DamageHealth();
+
+            EffectSettings effectSettings = new EffectSettings()
+            {
+                MagnitudeBaseMin = 1,
+                MagnitudeBaseMax = 2,
+                MagnitudePerLevel = 1,
+                MagnitudePlusMax = 2,
+                MagnitudePlusMin = 3,
+            };
+
+            EffectEntry effectEntry = new EffectEntry()
+            {
+                Key = templateEffect.Properties.Key,
+                Settings = effectSettings,
+            };
+
+            EffectBundleSettings spell = new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.SingleTargetAtRange,
+                ElementType = ElementTypes.Fire,
+                Name = "Firebolt",
+                IconIndex = 12,
+                Effects = new[] { effectEntry },
+            };
+
+            return spell;
+        }
+
+        public static EffectBundleSettings Rise()
+        {
+            var templateEffect = new Levitate();
+
+            EffectSettings effectSettings = new EffectSettings()
+            {
+                MagnitudeBaseMin = 1,
+                MagnitudeBaseMax = 2,
+                MagnitudePerLevel = 2,
+                MagnitudePlusMax = 2,
+                MagnitudePlusMin = 1,
+                DurationPerLevel = 2,
+                DurationBase = 1,
+                DurationPlus = 1,
+            };
+
+            EffectEntry effectEntry = new EffectEntry()
+            {
+                Key = templateEffect.Properties.Key,
+                Settings = effectSettings,
+            };
+
+            EffectBundleSettings spell = new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Rise",
+                IconIndex = 12,
+                Effects = new[] { effectEntry },
+            };
+
+            return spell;
+        }
+
+        public static EffectBundleSettings Regenerate()
+        {
+            var templateEffect = new Regenerate();
+
+            EffectSettings effectSettings = new EffectSettings()
+            {
+                MagnitudeBaseMin = 1,
+                MagnitudeBaseMax = 2,
+                MagnitudePerLevel = 1,
+                MagnitudePlusMax = 11,
+                MagnitudePlusMin = 10,
+                DurationPerLevel = 1,
+                DurationBase = 1,
+                DurationPlus = 2,
+            };
+
+            EffectEntry effectEntry = new EffectEntry()
+            {
+                Key = templateEffect.Properties.Key,
+                Settings = effectSettings,
+            };
+
+            EffectBundleSettings spell = new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Regenerate",
+                IconIndex = 12,
+                Effects = new[] { effectEntry },
+            };
+
+            return spell;
+        }
+
+        public static EffectBundleSettings Light()
+        {
+            var spell = new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Candlelight",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = LightNormal.EffectKey,
+                    Settings = new EffectSettings()
+                    {
+                        DurationPerLevel = 2,
+                        DurationBase = 3,
+                        DurationPlus = 1,
+                    }
+                } },
+            };
+            return spell;
+        }
+
+        public static EffectBundleSettings Buyoancy()
+        {
+            var spell = new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Buyoancy",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = WaterBreathing.EffectKey,
+                    Settings = new EffectSettings()
+                    {
+                        DurationPerLevel = 1,
+                        DurationBase = 1,
+                        DurationPlus = 1,
+                    }
+                },new EffectEntry()
+                {
+                    Key = WaterWalking.EffectKey,
+                    Settings = new EffectSettings()
+                    {
+                        DurationPerLevel = 1,
+                        DurationBase = 1,
+                        DurationPlus = 1,
+                    }
+                } },
+            };
+            return spell;
+        }
+
+
     }
 }

@@ -26,6 +26,7 @@ namespace MightyMagick
         public bool AddDetectQuest { get; set; }
 
         public bool AddStartingSpells { get; set; }
+        public bool AnducarsGrimoire { get; set; }
     }
 
     public class SpellProgressionSettings

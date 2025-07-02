@@ -355,6 +355,13 @@
                     "Description": "Adds a few more starting spells when making a new char.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "AnducarsGrimoire",
+                    "Description": "Adds some min-maxed low cost spells for vanilla behaviour.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 }
             ],
             "$version": "v1"

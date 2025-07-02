@@ -94,6 +94,7 @@ namespace MightyMagick
             result.MagicEffectSettings.JumpingHasMagnitude =  settings.GetValue<bool>("MagicEffectOverridesModule", "JumpingHasMagnitude");
             result.MagicEffectSettings.AddDetectQuest =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddDetectQuest");
             result.MagicEffectSettings.AddStartingSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddStartingSpells");
+            result.MagicEffectSettings.AnducarsGrimoire =  settings.GetValue<bool>("MagicEffectOverridesModule", "AnducarsGrimoire");
             return result;
         }
 
@@ -117,6 +118,8 @@ namespace MightyMagick
             {
                 NewVendorSpells.RegisterSpells();
             }
+
+            AnducarsGrimoire.RegisterSpells();
 
             StartGameBehaviour.OnStartGame += OnNewGameStarted;
 
