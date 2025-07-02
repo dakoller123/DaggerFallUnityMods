@@ -26,8 +26,8 @@ namespace MightyMagick.MagicEffects
             properties.AllowedElements = ElementTypes.Magic;
             properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker;
             properties.MagicSkill = DFCareer.MagicSkills.Alteration;
-            properties.DurationCosts = MakeEffectCosts(28, 8);
-            properties.MagnitudeCosts = MakeEffectCosts(100, 120);
+            properties.DurationCosts = MakeEffectCosts(30, 8);
+            properties.MagnitudeCosts = MakeEffectCosts(300, 120);
         }
 
         public override string GroupName => "Mage Armor";

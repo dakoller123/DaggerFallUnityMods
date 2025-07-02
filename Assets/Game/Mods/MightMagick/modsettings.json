@@ -304,27 +304,20 @@
         },
         {
             "Name": "MagicEffectOverridesModule",
-            "Description": "Various Magic Effects that can be overriden with slightly changed behaviour",
+            "Description": "Various Magic Effects that can be overriden with slightly changed behaviour.",
             "IsAdvanced": false,
             "Keys": [
                 {
                     "Value": true,
                     "Name": "HideMagicCandle",
-                    "Description": "Hide the dancing candle from the light spell",
+                    "Description": "Hide the dancing candle from the light spell.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 },
                 {
                     "Value": true,
                     "Name": "LevitateHasMagnitude",
-                    "Description": "Levitate has magnitude that increases the flying speed",
-                    "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                },
-                {
-                    "Value": true,
-                    "Name": "CheaperShield",
-                    "Description": "Halves the Shield spell's magnitude cost to make it usable at low levels.",
+                    "Description": "Levitate has magnitude that increases the flying speed.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 },
@@ -345,14 +338,21 @@
                 {
                     "Value": true,
                     "Name": "AddMoreVendorSpells",
-                    "Description": "Levitate has magnitude that increases the flying speed",
+                    "Description": "Adds more circinate (vendor) spells.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 },
                 {
                     "Value": true,
                     "Name": "AddDetectQuest",
-                    "Description": "Adds a new Detect Quest spell, ported from the Clairvoyance mod",
+                    "Description": "Adds a new Detect Quest spell, ported from the Clairvoyance mod.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "AddStartingSpells",
+                    "Description": "Adds a few more starting spells when making a new char.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 }

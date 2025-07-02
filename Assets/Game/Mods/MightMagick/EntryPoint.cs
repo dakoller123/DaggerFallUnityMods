@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using DaggerfallConnect;
 using UnityEngine;
 using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Items;
@@ -89,11 +90,10 @@ namespace MightyMagick
             result.MagicEffectSettings.LevitateHasMagnitude = settings.GetValue<bool>("MagicEffectOverridesModule", "LevitateHasMagnitude");
             result.MagicEffectSettings.HideMagicCandle = settings.GetValue<bool>("MagicEffectOverridesModule", "HideMagicCandle");
             result.MagicEffectSettings.AddMoreVendorSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddMoreVendorSpells");
-            result.MagicEffectSettings.CheaperShield =  settings.GetValue<bool>("MagicEffectOverridesModule", "CheaperShield");
             result.MagicEffectSettings.AddMageArmor =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddMageArmor");
             result.MagicEffectSettings.JumpingHasMagnitude =  settings.GetValue<bool>("MagicEffectOverridesModule", "JumpingHasMagnitude");
             result.MagicEffectSettings.AddDetectQuest =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddDetectQuest");
-
+            result.MagicEffectSettings.AddStartingSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddStartingSpells");
             return result;
         }
 
@@ -109,12 +109,7 @@ namespace MightyMagick
                 DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowFactory.RegisterCustomUIWindow(DaggerfallWorkshop.Game.UserInterfaceWindows.UIWindowType.SpellMaker, typeof(MightyMagickSpellMakerWindow));
             }
 
-            if (MightyMagickModSettings.PotionSettings.PotionsAtStart > 0)
-            {
 
-                StartGameBehaviour.OnStartGame += OnNewGameStarted;
-
-            }
 
             HarmonyPatcher.TryApplyPatch();
 
@@ -123,15 +118,52 @@ namespace MightyMagick
                 NewVendorSpells.RegisterSpells();
             }
 
+            StartGameBehaviour.OnStartGame += OnNewGameStarted;
+
             Debug.Log("Finished mod init: MightyMagickMod");
         }
 
         static void OnNewGameStarted(object sender, EventArgs e)
         {
+            Debug.Log("MightyMagickMod - OnNewGameStarted");
             var player = GameManager.Instance.PlayerEntity;
+            if (MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings.PotionsAtStart > 0)
+            {
 
-            var potion = ItemBuilder.CreatePotion(5188896, MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings.PotionsAtStart);
-            player.Items.AddItem(potion);
+                Debug.Log("MightyMagickMod - Adding potions");
+                var potion = ItemBuilder.CreatePotion(5188896, MightyMagickMod.Instance.MightyMagickModSettings.PotionSettings.PotionsAtStart);
+                player.Items.AddItem(potion);
+
+            }
+
+            var magicSettings = Instance.MightyMagickModSettings.MagicEffectSettings;
+
+            if (magicSettings.AddStartingSpells)
+            {
+                if (magicSettings.AddMoreVendorSpells)
+                {
+                    Debug.Log("MightyMagickMod - Checking starting skills");
+                    if (player.Career.PrimarySkill1 == DFCareer.Skills.Alteration ||
+                        player.Career.PrimarySkill2 == DFCareer.Skills.Alteration ||
+                        player.Career.PrimarySkill3 == DFCareer.Skills.Alteration)
+                    {
+                        if (magicSettings.AddMageArmor)
+                        {
+                            Debug.Log("MightyMagickMod - Adding Minor Mage Armor to player");
+                            var spell =
+                                GameManager.Instance.EntityEffectBroker
+                                    .GetCustomSpellBundleOffer("MinorMageArmor-CustomOffer");
+                            // player.AddSpell(NewVendorSpells.MinorMageArmor());
+                        }
+                        player.AddSpell(NewVendorSpells.MinorShield());
+                        // if (magicSettings.CheaperShield)
+                        // {
+                        //     Debug.Log("MightyMagickMod - Adding Minor Shield to player");
+                        //     player.AddSpell(NewVendorSpells.MinorShield());
+                        // }
+                    }
+                }
+            }
         }
     }
 }

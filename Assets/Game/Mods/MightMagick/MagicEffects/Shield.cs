@@ -41,8 +41,8 @@ namespace MightyMagick.MagicEffects
             properties.AllowedElements = EntityEffectBroker.ElementFlags_MagicOnly;
             properties.AllowedCraftingStations = MagicCraftingStations.SpellMaker;
             properties.MagicSkill = DFCareer.MagicSkills.Alteration;
-            properties.DurationCosts = MakeEffectCosts(28, 8);
-            properties.MagnitudeCosts = MakeEffectCosts(40, 120);
+            properties.DurationCosts = MakeEffectCosts(20, 8);
+            properties.MagnitudeCosts = MakeEffectCosts(20, 120);
         }
 
         public override string GroupName => TextManager.Instance.GetLocalizedText("shield");
