@@ -337,8 +337,8 @@
                 },
                 {
                     "Value": true,
-                    "Name": "AddMoreVendorSpells",
-                    "Description": "Adds more circinate (vendor) spells.",
+                    "Name": "AddUnleveledVendorSpells",
+                    "Description": "Adds more circinate (vendor) spells. Balanced around unleveled spells mod.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 },

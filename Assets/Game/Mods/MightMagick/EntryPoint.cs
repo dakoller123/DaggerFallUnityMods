@@ -89,7 +89,7 @@ namespace MightyMagick
 
             result.MagicEffectSettings.LevitateHasMagnitude = settings.GetValue<bool>("MagicEffectOverridesModule", "LevitateHasMagnitude");
             result.MagicEffectSettings.HideMagicCandle = settings.GetValue<bool>("MagicEffectOverridesModule", "HideMagicCandle");
-            result.MagicEffectSettings.AddMoreVendorSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddMoreVendorSpells");
+            result.MagicEffectSettings.AddUnleveledVendorSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddUnleveledVendorSpells");
             result.MagicEffectSettings.AddMageArmor =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddMageArmor");
             result.MagicEffectSettings.JumpingHasMagnitude =  settings.GetValue<bool>("MagicEffectOverridesModule", "JumpingHasMagnitude");
             result.MagicEffectSettings.AddDetectQuest =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddDetectQuest");
@@ -114,7 +114,7 @@ namespace MightyMagick
 
             HarmonyPatcher.TryApplyPatch();
 
-            if (MightyMagickModSettings.MagicEffectSettings.AddMoreVendorSpells)
+            if (MightyMagickModSettings.MagicEffectSettings.AddUnleveledVendorSpells)
             {
                 NewVendorSpells.RegisterSpells();
             }
@@ -143,7 +143,7 @@ namespace MightyMagick
 
             if (magicSettings.AddStartingSpells)
             {
-                if (magicSettings.AddMoreVendorSpells)
+                if (magicSettings.AddUnleveledVendorSpells)
                 {
                     Debug.Log("MightyMagickMod - Checking starting skills");
                     if (player.Career.PrimarySkill1 == DFCareer.Skills.Alteration ||

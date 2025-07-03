@@ -4,8 +4,6 @@ using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using MightyMagick.MagicEffects;
 using LightNormal = DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects.LightNormal;
-using MageArmor = MightyMagick.MagicEffects.MageArmor;
-using Shield = DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects.Shield;
 
 namespace MightyMagick
 {
@@ -37,6 +35,7 @@ namespace MightyMagick
 
             AddOffer(Firebolt(), nameof(Firebolt));
             AddOffer(FieryTouch(), nameof(FieryTouch));
+            AddOffer(FireNova(), nameof(FireNova));
             AddOffer(Blink(), nameof(Blink));
             AddOffer(CurePoison(), nameof(CurePoison));
             AddOffer(CureDisease(), nameof(CureDisease));
@@ -44,6 +43,10 @@ namespace MightyMagick
             AddOffer(Regenerate(), nameof(Regenerate));
             AddOffer(Light(), nameof(Light));
             AddOffer(Buoyancy(), nameof(Buoyancy));
+            AddOffer(Frostbolt(), nameof(Frostbolt));
+            AddOffer(Stamina(), nameof(Stamina));
+            AddOffer(Teleport(), nameof(Teleport));
+            AddOffer(FreeAction(), nameof(FreeAction));
         }
 
         public static void HealMultipleStats(List<BaseEntityEffect> effects, string name, string key)
@@ -85,6 +88,95 @@ namespace MightyMagick
             GameManager.Instance.EntityEffectBroker.RegisterCustomSpellBundleOffer(offer);
         }
 
+        public static EffectBundleSettings Teleport()
+        {
+            return new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Anducar's Teleport",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = new Teleport().Properties.Key,
+                    Settings = new EffectSettings()
+                    {
+                    },
+                } },
+            };
+        }
+        public static EffectBundleSettings FreeAction()
+        {
+            return new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Anducar's Free Action",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = new FreeAction().Properties.Key,
+                    Settings = new EffectSettings()
+                    {
+                        DurationBase = 1,
+                        DurationPerLevel = 1,
+                        DurationPlus = 2
+                    },
+                } },
+            };
+        }
+        public static EffectBundleSettings Stamina()
+        {
+            return new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.CasterOnly,
+                ElementType = ElementTypes.Magic,
+                Name = "Anducar's Stamina",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = new HealFatigue().Properties.Key,
+                    Settings = new EffectSettings()
+                    {
+                        MagnitudeBaseMin = 10,
+                        MagnitudeBaseMax = 11,
+                        MagnitudePerLevel = 2,
+                        MagnitudePlusMax = 1,
+                        MagnitudePlusMin = 2,
+                    },
+                } },
+            };
+        }
+        public static EffectBundleSettings Frostbolt()
+        {
+            return new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.SingleTargetAtRange,
+                ElementType = ElementTypes.Cold,
+                Name = "Anducar's Frostbolt",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = new DamageHealth().Properties.Key,
+                    Settings = new EffectSettings()
+                    {
+                        MagnitudeBaseMin = 1,
+                        MagnitudeBaseMax = 2,
+                        MagnitudePerLevel = 1,
+                        MagnitudePlusMax = 2,
+                        MagnitudePlusMin = 3,
+                    },
+                } },
+            };
+        }
         public static EffectBundleSettings FieryTouch()
         {
             return new EffectBundleSettings()
@@ -94,6 +186,31 @@ namespace MightyMagick
                 TargetType = TargetTypes.ByTouch,
                 ElementType = ElementTypes.Fire,
                 Name = "Anducar's Fiery Touch",
+                IconIndex = 12,
+                Effects = new[] { new EffectEntry()
+                {
+                    Key = new DamageHealth().Properties.Key,
+                    Settings = new EffectSettings()
+                    {
+                        MagnitudeBaseMin = 1,
+                        MagnitudeBaseMax = 2,
+                        MagnitudePerLevel = 1,
+                        MagnitudePlusMax = 2,
+                        MagnitudePlusMin = 3,
+                    },
+                } },
+            };
+        }
+
+        public static EffectBundleSettings FireNova()
+        {
+            return new EffectBundleSettings()
+            {
+                Version = 1,
+                BundleType = BundleTypes.Spell,
+                TargetType = TargetTypes.AreaAroundCaster,
+                ElementType = ElementTypes.Fire,
+                Name = "Anducar's Fire Nova",
                 IconIndex = 12,
                 Effects = new[] { new EffectEntry()
                 {

@@ -19,7 +19,7 @@ namespace MightyMagick
         public bool HideMagicCandle { get; set; }
         public bool LevitateHasMagnitude { get; set; }
 
-        public bool AddMoreVendorSpells { get; set; }
+        public bool AddUnleveledVendorSpells { get; set; }
         public bool CheaperShield { get; set; } = false;
         public bool AddMageArmor { get; set; }
         public bool JumpingHasMagnitude { get; set; }
