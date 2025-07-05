@@ -52,6 +52,8 @@ namespace MightyMagick
 
             result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
             result.SpellCostSettings.Multiplier  = settings.GetValue<float>("SpellCostModule", "Multiplier");
+            result.SpellCostSettings.ArmorPenalty  = settings.GetValue<bool>("SpellCostModule", "ArmorPenalty");
+            result.SpellCostSettings.WeaponPenalty  = settings.GetValue<bool>("SpellCostModule", "WeaponPenalty");
 
             result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
 
@@ -95,6 +97,8 @@ namespace MightyMagick
             result.MagicEffectSettings.AddDetectQuest =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddDetectQuest");
             result.MagicEffectSettings.AddStartingSpells =  settings.GetValue<bool>("MagicEffectOverridesModule", "AddStartingSpells");
             result.MagicEffectSettings.AnducarsGrimoire =  settings.GetValue<bool>("MagicEffectOverridesModule", "AnducarsGrimoire");
+
+            result.MiscSettings.DisablePressButtonSpam =  settings.GetValue<bool>("MiscSettings", "DisablePressButtonSpam");
             return result;
         }
 
@@ -143,6 +147,27 @@ namespace MightyMagick
 
             if (magicSettings.AddStartingSpells)
             {
+                if (magicSettings.AnducarsGrimoire)
+                {
+                    player.AddSpell(AnducarsGrimoire.Firebolt());
+                    player.AddSpell(AnducarsGrimoire.FieryTouch());
+                    player.AddSpell(AnducarsGrimoire.FireNova());
+                    player.AddSpell(AnducarsGrimoire.Regenerate());
+                    player.AddSpell(AnducarsGrimoire.Light());
+                    //
+                    // player.AddSpell(AnducarsGrimoire.Blink());
+                    // player.AddSpell(AnducarsGrimoire.CurePoison());
+                    // player.AddSpell(AnducarsGrimoire.CureDisease());
+                    // player.AddSpell(AnducarsGrimoire.Rise());
+                    //
+                    //
+                    // player.AddSpell(AnducarsGrimoire.Buoyancy());
+                    // player.AddSpell(AnducarsGrimoire.Frostbolt());
+                    // player.AddSpell(AnducarsGrimoire.Stamina());
+                    // player.AddSpell(AnducarsGrimoire.Teleport());
+                    // player.AddSpell(AnducarsGrimoire.FreeAction());
+                }
+
                 if (magicSettings.AddUnleveledVendorSpells)
                 {
                     Debug.Log("MightyMagickMod - Checking starting skills");

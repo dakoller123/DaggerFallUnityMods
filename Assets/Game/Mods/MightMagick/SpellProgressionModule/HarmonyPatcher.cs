@@ -30,8 +30,7 @@ namespace  MightyMagick.SpellProgressionModule
                 if (absorbSettings.Enabled) PatchTryAbsorb();
                 if (spellProgSettings.LimitSpellCastBySkill) PatchSetReadySpell();
                 if (spellProgSettings.LimitSpellBuyBySkill) PatchSpellBuy();
-
-                PatchUIMessage();
+                if (MightyMagickMod.Instance.MightyMagickModSettings.MiscSettings.DisablePressButtonSpam) PatchUIMessage();
 
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;

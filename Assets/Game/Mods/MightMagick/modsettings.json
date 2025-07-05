@@ -157,6 +157,20 @@
                     "Description": "Multiplies the spell cost at the end of the calculation. 0.5 makes the spells cost half as much for example",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "ArmorPenalty",
+                    "Description": "When enabled, each equipped armor piece increases spellcosts based on type (Leather, Chain, Plate, Shield) ",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "WeaponPenalty",
+                    "Description": "When enabled, equipped weapons increase spellcosts. Staffs are exceptions.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 }
             ],
             "$version": "v1"
@@ -360,6 +374,21 @@
                     "Value": true,
                     "Name": "AnducarsGrimoire",
                     "Description": "Adds some min-maxed low cost spells for vanilla behaviour.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "MiscSettings",
+            "Description":  null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "DisablePressButtonSpam",
+                    "Description": "Disables the 'Press button to cast spell' spam when preparing a targeted spell.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 }

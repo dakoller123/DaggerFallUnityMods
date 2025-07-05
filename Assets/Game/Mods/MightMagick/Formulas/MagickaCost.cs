@@ -3,17 +3,60 @@
 // Based on code from:    DunnyOfPenwick
 
 using System;
+using System.Linq;
 using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Entity;
 using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallConnect;
+using DaggerfallWorkshop.Game.Items;
 using UnityEngine;
 
 namespace MightyMagick.Formulas
 {
+
     public static class MagickaCost
     {
+        private const int ShieldPenalty = 10;
+        private const int LeatherPenalty = 5;
+        private const int ChainPenalty = 10;
+        private const int PlatePenalty = 20;
+        private const int WeaponPenalty = 30;
+        private const int StaffPenalty = 0;
+
+        private static bool IsShield(DaggerfallUnityItem item)
+        {
+            return (item.TemplateIndex == (int)Armor.Kite_Shield ||
+                    item.TemplateIndex == (int)Armor.Round_Shield ||
+                    item.TemplateIndex == (int)Armor.Tower_Shield ||
+                    item.TemplateIndex == (int)Armor.Buckler);
+        }
+
+        private static int GetItemPenalty(DaggerfallUnityItem item)
+        {
+            if (item == null) return 0;
+            var spellCostSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings;
+
+            if (IsShield(item) && spellCostSettings.ArmorPenalty) return ShieldPenalty;
+
+            if (item.ItemGroup == ItemGroups.Armor && spellCostSettings.ArmorPenalty)
+            {
+                switch (item.NativeMaterialValue)
+                {
+                    case (int)ArmorMaterialTypes.Leather:
+                        return LeatherPenalty;
+                    case (int)ArmorMaterialTypes.Chain:
+                        return ChainPenalty;
+                    default:
+                        return PlatePenalty;
+                }
+            }
+
+            if (item.ItemGroup == ItemGroups.Weapons && spellCostSettings.WeaponPenalty)
+                return item.TemplateIndex == (int)Weapons.Staff ? StaffPenalty : WeaponPenalty;
+
+            return 0;
+        }
 
         // Just makes formulas more readable
         static int trunc(double value) { return (int)Math.Truncate(value); }
@@ -119,12 +162,19 @@ namespace MightyMagick.Formulas
                 effectCost.spellPointCost = trunc(spellPointCost);
             }
 
+            var spellCostSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings;
+
+            //caster entity is null == it's the player.
+            if ((spellCostSettings.ArmorPenalty || spellCostSettings.WeaponPenalty) && casterEntity == null)
+            {
+                var armorPenalty =  GameManager.Instance.PlayerEntity.ItemEquipTable.EquipTable.Sum(GetItemPenalty);
+                effectCost.spellPointCost = Mathf.RoundToInt(effectCost.spellPointCost * (1.0f + armorPenalty / 100.0f));
+            }
+
             var modsettingsMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings.Multiplier;
             effectCost.spellPointCost = Mathf.RoundToInt(effectCost.spellPointCost * modsettingsMultiplier);
 
             return effectCost;
         }
-
-
     }
 }

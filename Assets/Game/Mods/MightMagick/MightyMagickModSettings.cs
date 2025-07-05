@@ -2,16 +2,22 @@ namespace MightyMagick
 {
     public class MightyMagickModSettings
     {
-        public RegenSettings RegenSettings { get; set; } = new RegenSettings();
-        public SpellCostSettings SpellCostSettings { get; set; } = new SpellCostSettings();
-        public PotionSettings PotionSettings {get;set; } = new PotionSettings();
-        public SavingThrowSettings SavingThrowSettings {get;set;} = new SavingThrowSettings();
-        public MagickaPoolSettings MagickaPoolSettings {get;set;} = new MagickaPoolSettings();
-        public MagickaEnchantSettings MagickaEnchantSettings {get;set;} = new MagickaEnchantSettings();
-        public AbsorbSettings AbsorbSettings {get;set;} = new AbsorbSettings();
+        public MiscSettings MiscSettings { get; } = new MiscSettings();
+        public RegenSettings RegenSettings { get; } = new RegenSettings();
+        public SpellCostSettings SpellCostSettings { get; } = new SpellCostSettings();
+        public PotionSettings PotionSettings {get; } = new PotionSettings();
+        public SavingThrowSettings SavingThrowSettings {get; } = new SavingThrowSettings();
+        public MagickaPoolSettings MagickaPoolSettings {get; } = new MagickaPoolSettings();
+        public MagickaEnchantSettings MagickaEnchantSettings {get; } = new MagickaEnchantSettings();
+        public AbsorbSettings AbsorbSettings {get; } = new AbsorbSettings();
 
-        public MagicEffectSettings MagicEffectSettings { get; set; } = new MagicEffectSettings();
-        public SpellProgressionSettings SpellProgressionSettings { get; set; } = new SpellProgressionSettings();
+        public MagicEffectSettings MagicEffectSettings { get; } = new MagicEffectSettings();
+        public SpellProgressionSettings SpellProgressionSettings { get; } = new SpellProgressionSettings();
+    }
+
+    public class MiscSettings
+    {
+        public bool DisablePressButtonSpam { get; set; }
     }
 
     public class MagicEffectSettings
@@ -58,6 +64,10 @@ namespace MightyMagick
     {
         public bool Enabled { get; set; }
         public float Multiplier { get; set; }
+
+        public bool ArmorPenalty { get; set; }
+
+        public bool WeaponPenalty { get; set; }
 
     }
 
