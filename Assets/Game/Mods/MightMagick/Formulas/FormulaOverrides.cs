@@ -27,6 +27,11 @@ namespace MightyMagick.Formulas
                 FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
             }
 
+            if (settings.SpellCostSettings.EquipmentPenalty)
+            {
+                FormulaHelper.RegisterOverride(mod, "CalculateTotalEffectCosts", (Func<EffectEntry[], TargetTypes, DaggerfallEntity, bool, FormulaHelper.SpellCost>)MagickaCost.CalculateTotalEffectCosts);
+            }
+
             if (settings.MagickaPoolSettings.Enabled)
             {
                 FormulaHelper.RegisterOverride(mod, "SpellPoints", (Func<int, float, int>)MagickaPoolSize.SpellPoints);

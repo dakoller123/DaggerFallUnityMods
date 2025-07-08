@@ -13,6 +13,14 @@ namespace MightyMagick
 
         public MagicEffectSettings MagicEffectSettings { get; } = new MagicEffectSettings();
         public SpellProgressionSettings SpellProgressionSettings { get; } = new SpellProgressionSettings();
+
+        public SkillProgressionSettings SkillProgressionSettings { get; } = new SkillProgressionSettings();
+    }
+
+    public class SkillProgressionSettings
+    {
+        public bool Enabled { get; set; } = true;
+        public int BaseCost { get; set; } = 100;
     }
 
     public class MiscSettings
@@ -65,10 +73,7 @@ namespace MightyMagick
         public bool Enabled { get; set; }
         public float Multiplier { get; set; }
 
-        public bool ArmorPenalty { get; set; }
-
-        public bool WeaponPenalty { get; set; }
-
+        public bool EquipmentPenalty { get; set; }
     }
 
     public class SavingThrowSettings

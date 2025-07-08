@@ -31,6 +31,11 @@ namespace  MightyMagick.SpellProgressionModule
                 if (spellProgSettings.LimitSpellCastBySkill) PatchSetReadySpell();
                 if (spellProgSettings.LimitSpellBuyBySkill) PatchSpellBuy();
                 if (MightyMagickMod.Instance.MightyMagickModSettings.MiscSettings.DisablePressButtonSpam) PatchUIMessage();
+                if (MightyMagickMod.Instance.MightyMagickModSettings.SkillProgressionSettings.Enabled)
+                {
+                    PatchSkillProgress();
+                    PatchSkillTally();
+                }
 
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;
@@ -40,6 +45,42 @@ namespace  MightyMagick.SpellProgressionModule
                 Debug.LogError($"Harmony: Error while patching => {e}");
                 return false;
             }
+        }
+
+        private static void PatchSkillTally()
+        {
+            MethodInfo targetMethod = typeof(EntityEffectManager)
+                .GetMethod("TallyPlayerReadySpellEffectSkills", BindingFlags.NonPublic | BindingFlags.Instance);
+
+            MethodInfo prefixMethod = typeof(EntityEffectManagerPatches)
+                .GetMethod(
+                    nameof(EntityEffectManagerPatches.Prefix_TallyPlayerReadySpellEffectSkills),
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            harmony.Patch(
+                original: targetMethod,
+                prefix: new HarmonyMethod(prefixMethod));
+
+            Debug.Log("Harmony: TallyPlayerReadySpellEffectSkills() patched successfully.");
+        }
+
+        private static void PatchSkillProgress()
+        {
+            MethodInfo targetMethod = typeof(DaggerfallSkills)
+                .GetMethod(nameof(DaggerfallSkills.GetAdvancementMultiplier), BindingFlags.Public | BindingFlags.Static);
+
+            MethodInfo postFixMethod = typeof(SkillsPatches)
+                .GetMethod(
+                    nameof(SkillsPatches.Postfix_GetAdvancementMultiplier),
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            harmony.Patch(
+                original: targetMethod,
+                postfix: new HarmonyMethod(postFixMethod));
+
+            Debug.Log("Harmony: GetAdvancementMultiplier() patched successfully.");
         }
         private static void PatchUIMessage()
         {

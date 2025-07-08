@@ -151,7 +151,7 @@
                 },
                 {
                     "Min": 0.1,
-                    "Max": 2.0,
+                    "Max": 10.0,
                     "Value": 1.0,
                     "Name": "Multiplier",
                     "Description": "Multiplies the spell cost at the end of the calculation. 0.5 makes the spells cost half as much for example",
@@ -160,15 +160,8 @@
                 },
                 {
                     "Value": false,
-                    "Name": "ArmorPenalty",
-                    "Description": "When enabled, each equipped armor piece increases spellcosts based on type (Leather, Chain, Plate, Shield) ",
-                    "$version": "v1",
-                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
-                },
-                {
-                    "Value": false,
-                    "Name": "WeaponPenalty",
-                    "Description": "When enabled, equipped weapons increase spellcosts. Staffs are exceptions.",
+                    "Name": "EquipmentPenalty",
+                    "Description": "When enabled, each equipped weapon and armor piece increases spellcosts based on type (Leather, Chain, Plate, Shield)",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 }

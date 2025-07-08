@@ -47,6 +47,8 @@ namespace MightyMagick.MagicEffects
             {
                 GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(new DetectQuest(), true);
             }
+
+
         }
     }
 }

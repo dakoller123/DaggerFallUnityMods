@@ -52,8 +52,7 @@ namespace MightyMagick
 
             result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
             result.SpellCostSettings.Multiplier  = settings.GetValue<float>("SpellCostModule", "Multiplier");
-            result.SpellCostSettings.ArmorPenalty  = settings.GetValue<bool>("SpellCostModule", "ArmorPenalty");
-            result.SpellCostSettings.WeaponPenalty  = settings.GetValue<bool>("SpellCostModule", "WeaponPenalty");
+            result.SpellCostSettings.EquipmentPenalty  = settings.GetValue<bool>("SpellCostModule", "EquipmentPenalty");
 
             result.PotionSettings.Enabled = settings.GetValue<bool>("PotionModule", "Enabled");
 

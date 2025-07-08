@@ -1,5 +1,7 @@
+using DaggerfallConnect;
 using DaggerfallWorkshop.Game;
 using DaggerfallWorkshop.Game.Entity;
+using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.MagicAndEffects.MagicEffects;
 using MightyMagick.Formulas;
@@ -36,6 +38,28 @@ namespace Game.Mods.MightMagick.SpellProgressionModule
                 return true;
 
             DaggerfallUI.AddHUDText($"Not skilled enough to cast this yet.");
+            return false;
+        }
+
+        public  static bool Prefix_TallyPlayerReadySpellEffectSkills(EntityEffectBundle ___readySpell)
+        {
+            // Validate ready spell
+            if (___readySpell == null || ___readySpell.Settings.Effects == null)
+                return false;
+
+            // Loop through effects in spell bundle and tally related magic skill
+            // Normally spells will have no more than 3 effects
+            for (var i = 0; i < ___readySpell.Settings.Effects.Length; i++)
+            {
+                var effectEntry = ___readySpell.Settings.Effects[i];
+                var effect = GameManager.Instance.EntityEffectBroker.GetEffectTemplate(___readySpell.Settings.Effects[i].Key);
+                if (effect == null)
+                    continue;
+
+                var (_, cost) = FormulaHelper.CalculateEffectCosts(effectEntry);
+                GameManager.Instance.PlayerEntity.TallySkill((DFCareer.Skills)effect.Properties.MagicSkill, (short)cost);
+            }
+
             return false;
         }
     }

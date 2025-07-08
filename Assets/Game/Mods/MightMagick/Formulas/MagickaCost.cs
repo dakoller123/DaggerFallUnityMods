@@ -37,9 +37,9 @@ namespace MightyMagick.Formulas
             if (item == null) return 0;
             var spellCostSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings;
 
-            if (IsShield(item) && spellCostSettings.ArmorPenalty) return ShieldPenalty;
+            if (IsShield(item)) return ShieldPenalty;
 
-            if (item.ItemGroup == ItemGroups.Armor && spellCostSettings.ArmorPenalty)
+            if (item.ItemGroup == ItemGroups.Armor && spellCostSettings.EquipmentPenalty)
             {
                 switch (item.NativeMaterialValue)
                 {
@@ -52,7 +52,7 @@ namespace MightyMagick.Formulas
                 }
             }
 
-            if (item.ItemGroup == ItemGroups.Weapons && spellCostSettings.WeaponPenalty)
+            if (item.ItemGroup == ItemGroups.Weapons)
                 return item.TemplateIndex == (int)Weapons.Staff ? StaffPenalty : WeaponPenalty;
 
             return 0;
@@ -162,19 +162,68 @@ namespace MightyMagick.Formulas
                 effectCost.spellPointCost = trunc(spellPointCost);
             }
 
-            var spellCostSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings;
+            return effectCost;
+        }
 
-            //caster entity is null == it's the player.
-            if ((spellCostSettings.ArmorPenalty || spellCostSettings.WeaponPenalty) && casterEntity == null)
+        /// <summary>
+        /// Performs complete gold and spellpoint costs for an array of effects.
+        /// Also calculates multipliers for target type.
+        /// </summary>
+        /// <param name="effectEntries">EffectEntry array for spell.</param>
+        /// <param name="targetType">Target type of spell.</param>
+        /// <param name="totalGoldCostOut">Total gold cost out.</param>
+        /// <param name="totalSpellPointCostOut">Total spellpoint cost out.</param>
+        /// <param name="casterEntity">Caster entity. Assumed to be player if null.</param>
+        /// <param name="minimumCastingCost">Spell point always costs minimum (e.g. from vampirism). Do not set true for reflection/absorption cost calculations.</param>
+        public static FormulaHelper.SpellCost CalculateTotalEffectCosts(EffectEntry[] effectEntries, TargetTypes targetType, DaggerfallEntity casterEntity = null, bool minimumCastingCost = false)
+        {
+            const int castCostFloor = 5;
+
+            FormulaHelper.SpellCost totalCost;
+            totalCost.goldCost = 0;
+            totalCost.spellPointCost = 0;
+
+            // Must have effect entries
+            if (effectEntries == null || effectEntries.Length == 0)
+                return totalCost;
+
+            // Add costs for each active effect slot
+            for (var i = 0; i < effectEntries.Length; i++)
             {
-                var armorPenalty =  GameManager.Instance.PlayerEntity.ItemEquipTable.EquipTable.Sum(GetItemPenalty);
-                effectCost.spellPointCost = Mathf.RoundToInt(effectCost.spellPointCost * (1.0f + armorPenalty / 100.0f));
+                if (string.IsNullOrEmpty(effectEntries[i].Key))
+                    continue;
+
+                (var goldCost, var spellPointCost) = FormulaHelper.CalculateEffectCosts(effectEntries[i], casterEntity);
+                totalCost.goldCost += goldCost;
+                totalCost.spellPointCost += spellPointCost;
             }
 
-            var modsettingsMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings.Multiplier;
-            effectCost.spellPointCost = Mathf.RoundToInt(effectCost.spellPointCost * modsettingsMultiplier);
+            // Multipliers for target type
+            totalCost.goldCost = FormulaHelper.ApplyTargetCostMultiplier(totalCost.goldCost, targetType);
+            totalCost.spellPointCost = FormulaHelper.ApplyTargetCostMultiplier(totalCost.spellPointCost, targetType);
 
-            return effectCost;
+            // Set vampire spell cost
+            if (minimumCastingCost)
+                totalCost.spellPointCost = castCostFloor;
+
+
+
+            var spellCostSettings = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings;
+
+            var modsettingsMultiplier = MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings.Multiplier;
+            totalCost.spellPointCost = Mathf.RoundToInt(totalCost.spellPointCost * modsettingsMultiplier);
+
+            //caster entity is null == it's the player.
+            if (!spellCostSettings.EquipmentPenalty || casterEntity != null) return totalCost;
+
+            var armorPenalty =  GameManager.Instance.PlayerEntity.ItemEquipTable.EquipTable.Sum(GetItemPenalty);
+            totalCost.spellPointCost = Mathf.RoundToInt(totalCost.spellPointCost * (1.0f + armorPenalty / 100.0f));
+
+            // Enforce minimum
+            if (totalCost.spellPointCost < castCostFloor)
+                totalCost.spellPointCost = castCostFloor;
+
+            return totalCost;
         }
     }
 }
