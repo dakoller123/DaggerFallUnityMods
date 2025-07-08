@@ -50,7 +50,8 @@ namespace MightyMagick
             result.RegenSettings.RegenRateOutdoor  = settings.GetValue<int>("MagickaRegenModule", "RegenRateOutdoor");
             result.RegenSettings.RegenRateDungeon  = settings.GetValue<int>("MagickaRegenModule", "RegenRateDungeon");
 
-            result.SpellCostSettings.Enabled = settings.GetValue<bool>("SpellCostModule", "Enabled");
+            result.SpellCostSettings.OverrideCostFormula = settings.GetValue<bool>("SpellCostModule", "OverrideCostFormula");
+            result.SpellCostSettings.UseCostMultiplier = settings.GetValue<bool>("SpellCostModule", "UseCostMultiplier");
             result.SpellCostSettings.Multiplier  = settings.GetValue<float>("SpellCostModule", "Multiplier");
             result.SpellCostSettings.EquipmentPenalty  = settings.GetValue<bool>("SpellCostModule", "EquipmentPenalty");
 

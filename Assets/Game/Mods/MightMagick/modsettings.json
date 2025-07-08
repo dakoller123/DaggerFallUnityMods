@@ -139,13 +139,20 @@
         },
         {
             "Name": "SpellCostModule",
-            "Description": "Changes spell cost formula. Below 100 skill its vanilla, after that each point reduces cost by 1%",
+            "Description": "Settings related to the spell cost calculations.",
             "IsAdvanced": false,
             "Keys": [
                 {
                     "Value": true,
-                    "Name": "Enabled",
-                    "Description": null,
+                    "Name": "OverrideCostFormula",
+                    "Description": "Overrides the spell effect cost formula to support skill values higher than 100. Each point past 100 reduces cost by 1%. Incompatible with unleveled spells!",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "UseCostMultiplier",
+                    "Description": "Patches the spell effect cost formula to multiply it with the value set below. Compatible with unleveled spells.",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 },
@@ -161,7 +168,7 @@
                 {
                     "Value": false,
                     "Name": "EquipmentPenalty",
-                    "Description": "When enabled, each equipped weapon and armor piece increases spellcosts based on type (Leather, Chain, Plate, Shield)",
+                    "Description": "When enabled, each equipped weapon and armor piece increases spell costs based on type (Leather, Chain, Plate, Shield)",
                     "$version": "v1",
                     "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
                 }

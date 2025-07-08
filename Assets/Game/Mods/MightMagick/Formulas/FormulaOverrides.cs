@@ -22,14 +22,9 @@ namespace MightyMagick.Formulas
                 FormulaHelper.RegisterOverride(mod, "CalculateSpellPointRecoveryRate", (Func< PlayerEntity, int>)SpellPointRecoveryRate.CalculateSpellPointRecoveryRate);
             }
 
-            if (settings.SpellCostSettings.Enabled)
+            if (settings.SpellCostSettings.OverrideCostFormula)
             {
                 FormulaHelper.RegisterOverride(mod, "CalculateEffectCosts", (Func<IEntityEffect, EffectSettings, DaggerfallEntity, FormulaHelper.SpellCost>)MagickaCost.CalculateEffectCosts);
-            }
-
-            if (settings.SpellCostSettings.EquipmentPenalty)
-            {
-                FormulaHelper.RegisterOverride(mod, "CalculateTotalEffectCosts", (Func<EffectEntry[], TargetTypes, DaggerfallEntity, bool, FormulaHelper.SpellCost>)MagickaCost.CalculateTotalEffectCosts);
             }
 
             if (settings.MagickaPoolSettings.Enabled)
@@ -41,11 +36,6 @@ namespace MightyMagick.Formulas
             {
                 FormulaHelper.RegisterOverride(mod, "SavingThrowSpellEffect", (Func<IEntityEffect, DaggerfallEntity, int>)SavingThrowOverride.SavingThrow);
             }
-
-            // if (settings.AbsorbSettings.Enabled)
-            // {
-            //     FormulaHelper.RegisterOverride(mod, "TryAbsorption", (Func<IEntityEffect , TargetTypes, DaggerfallEntity, DaggerfallEntity, SpellAbsorption, int>)SpellAbsorb.TryAbsorption);
-            // }
         }
     }
 }

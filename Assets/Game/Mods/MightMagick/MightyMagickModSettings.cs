@@ -70,9 +70,9 @@ namespace MightyMagick
 
     public class SpellCostSettings
     {
-        public bool Enabled { get; set; }
+        public bool OverrideCostFormula { get; set; }
+        public bool UseCostMultiplier { get; set; }
         public float Multiplier { get; set; }
-
         public bool EquipmentPenalty { get; set; }
     }
 

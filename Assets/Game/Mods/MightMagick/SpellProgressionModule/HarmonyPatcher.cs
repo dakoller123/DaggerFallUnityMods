@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using DaggerfallWorkshop.Game.Entity;
+using DaggerfallWorkshop.Game.Formulas;
 using DaggerfallWorkshop.Game.MagicAndEffects;
 using DaggerfallWorkshop.Game.UserInterfaceWindows;
 using Game.Mods.MightMagick.SpellProgressionModule;
@@ -37,6 +38,12 @@ namespace  MightyMagick.SpellProgressionModule
                     PatchSkillTally();
                 }
 
+                if (MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings.UseCostMultiplier)
+                    PatchSpellEffectCost();
+
+                if (MightyMagickMod.Instance.MightyMagickModSettings.SpellCostSettings.EquipmentPenalty)
+                    PatchTotalEffectCost();
+
                 Debug.Log("Harmony: Applied patches successfully.");
                 return true;
             }
@@ -47,12 +54,50 @@ namespace  MightyMagick.SpellProgressionModule
             }
         }
 
+        private static void PatchTotalEffectCost()
+        {
+            var targetMethod = typeof(FormulaHelper)
+                .GetMethod(nameof(FormulaHelper.CalculateTotalEffectCosts), BindingFlags.Public | BindingFlags.Static);
+
+            var prefixMethod = typeof(FormulaPatches)
+                .GetMethod(
+                    nameof(FormulaPatches.PostFix_CalculateTotalEffectCosts),
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            harmony.Patch(
+                original: targetMethod,
+                postfix: new HarmonyMethod(prefixMethod));
+
+            Debug.Log("Harmony: PatchTotalEffectCost() patched successfully.");
+        }
+
+        private static void PatchSpellEffectCost()
+        {
+            var targetMethod = typeof(FormulaHelper)
+                .GetMethod(nameof(FormulaHelper.CalculateEffectCosts), BindingFlags.Public | BindingFlags.Static,
+                    null,
+                    new Type[] { typeof(IEntityEffect), typeof(EffectSettings), typeof(DaggerfallEntity) },
+                    null);
+            var prefixMethod = typeof(FormulaPatches)
+                .GetMethod(
+                    nameof(FormulaPatches.PostFix_CalculateEffectCosts),
+                    BindingFlags.Public | BindingFlags.Static
+                );
+
+            harmony.Patch(
+                original: targetMethod,
+                postfix: new HarmonyMethod(prefixMethod));
+
+            Debug.Log("Harmony: PatchSpellEffectCost() patched successfully.");
+        }
+
         private static void PatchSkillTally()
         {
-            MethodInfo targetMethod = typeof(EntityEffectManager)
+            var targetMethod = typeof(EntityEffectManager)
                 .GetMethod("TallyPlayerReadySpellEffectSkills", BindingFlags.NonPublic | BindingFlags.Instance);
 
-            MethodInfo prefixMethod = typeof(EntityEffectManagerPatches)
+            var prefixMethod = typeof(EntityEffectManagerPatches)
                 .GetMethod(
                     nameof(EntityEffectManagerPatches.Prefix_TallyPlayerReadySpellEffectSkills),
                     BindingFlags.Public | BindingFlags.Static

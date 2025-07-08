@@ -36,6 +36,7 @@
         "Assets/Game/Mods/MightMagick/MagicEffects/MightyLevitate.cs",
         "Assets/Game/Mods/MightMagick/MagicEffects/DetectQuestTarget.cs",
         "Assets/Game/Mods/MightMagick/AnducarsGrimoire.cs",
-        "Assets/Game/Mods/MightMagick/SpellProgressionModule/SkillsPatches.cs"
+        "Assets/Game/Mods/MightMagick/SpellProgressionModule/SkillsPatches.cs",
+        "Assets/Game/Mods/MightMagick/SpellProgressionModule/FormulaPatches.cs"
     ]
 }
